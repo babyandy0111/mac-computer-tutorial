@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的線上課程列表</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+        }
+        .gradient-text {
+            background-image: linear-gradient(to right, #3b82f6, #14b8a6, #a855f7);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+    <!-- Header -->
+    <header class="bg-white shadow">
+        <div class="container mx-auto px-6 py-8 text-center">
+            <h1 class="text-4xl md:text-5xl font-bold gradient-text">繁星雙語蒙特梭利實驗教育團體電腦課程</h1>
+            <p class="text-gray-600 mt-2 text-lg">上課老師 Andy Wang</p>
+        </div>
+    </header>
+
+    <!-- Main Content: Course List -->
+    <main class="container mx-auto px-4 sm:px-6 py-12">
+        <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
+            <div class="overflow-x-auto">
+                <table class="w-full text-left">
+                    <thead class="bg-gray-50 border-b border-gray-200">
+                        <tr>
+                            <th class="px-6 py-4 text-sm font-semibold text-gray-600 uppercase tracking-wider">上課時間</th>
+                            <th class="px-6 py-4 text-sm font-semibold text-gray-600 uppercase tracking-wider">大綱標題</th>
+                            <th class="px-6 py-4 text-sm font-semibold text-gray-600 uppercase tracking-wider text-center">傳送門</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-200">
+                        <!-- 課程項目 #1 -->
+                        <tr class="hover:bg-gray-50 transition-colors duration-200">
+                            <td class="px-6 py-5 whitespace-nowrap">
+                                <div class="text-base font-medium text-gray-900">2025/09/15</div>
+                                <div class="text-sm text-gray-500">第一章</div>
+                            </td>
+                            <td class="px-6 py-5">
+                                <div class="text-base font-semibold text-gray-800">Mac 新手村學習闖關：從開機到精通</div>
+                                <p class="text-sm text-gray-600 mt-1 max-w-md">專為國一新生設計，從硬體開箱、系統設定到實用技巧，打下最穩固的 Mac 操作基礎。</p>
+                            </td>
+                            <td class="px-6 py-5 text-center">
+                                <a href="ch1.html" class="inline-block bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-6 rounded-full shadow-lg transform hover:scale-105 transition-all duration-200">
+                                    進入課程
+                                </a>
+                            </td>
+                        </tr>
+                        
+                        <!-- 未來可以新增更多課程... -->
+                        <!-- 
+                        <tr class="hover:bg-gray-50 transition-colors duration-200">
+                            <td class="px-6 py-5 whitespace-nowrap">
+                                <div class="text-base font-medium text-gray-900">2025 秋季班</div>
+                                <div class="text-sm text-gray-500">第二章</div>
+                            </td>
+                            <td class="px-6 py-5">
+                                <div class="text-base font-semibold text-gray-800">待新增課程...</div>
+                                <p class="text-sm text-gray-600 mt-1 max-w-md">課程簡介...</p>
+                            </td>
+                            <td class="px-6 py-5 text-center">
+                                <a href="#" class="inline-block bg-gray-300 text-gray-500 font-bold py-2 px-6 rounded-full cursor-not-allowed">
+                                    即將推出
+                                </a>
+                            </td>
+                        </tr>
+                        -->
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <!-- Contact Section -->
+    <div class="container mx-auto px-4 sm:px-6 py-12">
+        <div class="bg-white rounded-2xl shadow-xl p-8 md:p-12">
+            <div class="grid md:grid-cols-3 gap-8 items-center">
+                <div class="md:col-span-1">
+                    <img src="https://teecid.tp.edu.tw/NonSchool/68/%E7%B9%81%E6%98%9F%E5%B0%8D%E5%A4%96%E5%BD%A2%E8%B1%A1%E5%9C%962024.png" alt="繁星雙語蒙特梭利實驗教育團體形象圖" class="rounded-lg shadow-md w-full h-auto object-cover max-w-xs mx-auto" onerror="this.onerror=null;this.src='https://placehold.co/400x400/e2e8f0/64748b?text=Image';">
+                </div>
+                <div class="md:col-span-2 text-center md:text-left">
+                    <h2 class="text-3xl font-bold text-gray-800">聯繫與更多資訊</h2>
+                    <p class="text-gray-600 mt-2">若您對課程或本教育團體有任何疑問，歡迎透過以下方式與我們聯繫，或前往官方頁面了解更多詳情。</p>
+                    <div class="mt-6 flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+                        <a href="https://teecid.tp.edu.tw/Home/NonSchool?NSCHID=68" target="_blank" rel="noopener noreferrer" class="inline-block bg-teal-500 hover:bg-teal-600 text-white font-bold py-3 px-6 rounded-full shadow-lg transform hover:scale-105 transition-all duration-200">
+                            前往官方介紹
+                        </a>
+                        <a href="mailto:wang.shih.hua.tw@gmail.com" class="inline-block bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-3 px-6 rounded-full transition-colors duration-200">
+                            Email 聯繫老師
+                        </a>
+                    </div>
+                     <p class="text-sm text-gray-500 mt-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline-block mr-1" viewBox="0 0 20 20" fill="currentColor">
+                          <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
+                          <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
+                        </svg>
+                        wang.shih.hua.tw@gmail.com
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white">
+        <div class="container mx-auto px-6 py-6 text-center text-gray-400">
+            <p>&copy; 2025 Andy Wang. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+</body>
+</html>

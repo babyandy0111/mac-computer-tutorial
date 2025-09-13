@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mac 新手村學習闖關：從開機到精通</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* 沿用並微調原本的優質樣式 */
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+        }
+        .section-card {
+            background-color: white;
+            border-radius: 1.5rem;
+            padding: 2.5rem;
+            margin-bottom: 2.5rem;
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            border: 1px solid #e5e7eb;
+        }
+        .section-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+        }
+        .gradient-text {
+            background-image: linear-gradient(to right, #6366f1, #a855f7, #ec4899);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .level-bubble {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 4rem;
+            height: 4rem;
+            border-radius: 9999px;
+            background-image: linear-gradient(to right, #ec4899, #a855f7);
+            color: white;
+            font-weight: 700;
+            font-size: 1.25rem;
+            flex-shrink: 0;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        }
+        /* 新增互動挑戰的樣式 */
+        details {
+            border-radius: 0.75rem;
+            border: 2px dashed #d1d5db;
+            padding: 1rem;
+            margin-top: 1.5rem;
+        }
+        summary {
+            font-weight: 700;
+            color: #4f46e5;
+            cursor: pointer;
+            list-style-type: '⚔️ ';
+        }
+        /* 新增影片容器的樣式，確保比例正確 */
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 */
+            height: 0;
+            overflow: hidden;
+            max-width: 100%;
+            background: #000;
+            border-radius: 0.75rem;
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <!-- Header -->
+    <header class="bg-white shadow-md sticky top-0 z-10">
+        <div class="container mx-auto px-6 py-4">
+            <h1 class="text-3xl font-bold gradient-text">Mac 新手村學習闖關</h1>
+            <p class="text-gray-600 mt-1">專為國一新生設計的 Mac 探險之旅，破關斬將，成為 Mac 大師！</p>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-6 py-12">
+
+        <!-- 關卡一：開箱 ＆ 初始化設定 -->
+        <section id="level1" class="section-card">
+            <div class="flex items-center mb-6">
+                <div class="level-bubble mr-6">第一關</div>
+                <div>
+                    <h2 class="text-4xl font-bold text-gray-900">開箱 ＆ 初始化設定</h2>
+                    <p class="text-xl text-gray-600 mt-1">哈囉，新夥伴！你的第一台 Mac</p>
+                </div>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-8 items-center">
+                <div class="prose max-w-none text-lg">
+                    <p>打開盒子的那一刻是不是超興奮的？Mac 就像一個來自未來的學習夥伴，準備帶你探索數位世界！</p>
+                    <p>第一次開機，Mac 會親切地跟你打招呼，並請你做一些簡單設定：</p>
+                    <ul class="list-disc pl-5 space-y-2">
+                        <li><strong>選擇語言：</strong>當然是選「繁體中文」囉！</li>
+                        <li><strong>連接 Wi-Fi：</strong>選擇家裡或學校的 Wi-Fi 網路，輸入密碼。</li>
+                        <li><strong>Apple ID：</strong>這是你在 Apple 世界的通行證，強烈建議登入或創建一個！這樣才能從 App Store 下載 App，並同步你的資料。</li>
+                        <li><strong>建立電腦帳號：</strong>設定你的使用者名稱和密碼，這個密碼超級重要，一定要記好喔！</li>
+                    </ul>
+                </div>
+                <div>
+                    <img src="https://images.pexels.com/photos/4158/apple-iphone-smartphone-desk.jpg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="MacBook 開機畫面" class="rounded-xl shadow-lg w-full h-auto object-cover" onerror="this.onerror=null;this.src='https://placehold.co/600x400/e2e8f0/64748b?text=[MacBook 開機畫面]';">
+                </div>
+            </div>
+        </section>
+
+        <!-- 關卡二：上網探險 & 數位通行證 -->
+        <section id="level2" class="section-card">
+            <div class="flex items-center mb-6">
+                 <div class="level-bubble mr-6">第二關</div>
+                <div>
+                    <h2 class="text-4xl font-bold text-gray-900">上網探險 & 數位通行證</h2>
+                    <p class="text-xl text-gray-600 mt-1">安裝 Chrome 瀏覽器並建立你的 Google Email</p>
+                </div>
+            </div>
+            <div class="grid md:grid-cols-2 gap-8 items-center">
+                 <div>
+                    <img src="https://images.pexels.com/photos/5082579/pexels-photo-5082579.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="在 Mac 上使用 Chrome 瀏覽器" class="rounded-xl shadow-lg w-full h-auto object-cover" onerror="this.onerror=null;this.src='https://placehold.co/600x400/e2e8f0/64748b?text=[在 Mac 上使用 Chrome]';">
+                </div>
+                <div class="prose max-w-none text-lg">
+                    <p>雖然 Mac 內建了 Safari 瀏覽器，但很多同學跟老師都習慣用 Google Chrome。讓我們來安裝它吧！</p>
+                    <ol class="list-decimal pl-5 space-y-3">
+                        <li>打開下方的 Dock 找到藍色指南針圖案的 <strong>Safari</strong>。</li>
+                        <li>在網址列輸入 <code class="bg-gray-200 px-2 py-1 rounded">google.com/chrome</code> 然後按下 Enter。</li>
+                        <li>點擊「下載 Chrome」，下載完成後，打開「下載項目」，點兩下安裝檔。</li>
+                        <li>把 Chrome 的圖案拖曳到旁邊的「應用程式」檔案夾裡，就安裝完成啦！</li>
+                    </ol>
+                    <p class="mt-4 font-bold">Email 是你在網路上的身分證和信箱，註冊網站、跟老師同學聯絡都會用到。我們來申請一個 Google 的 Gmail。</p>
+                     <ul class="list-disc pl-5 space-y-2">
+                        <li>打開 Chrome，前往 <code class="bg-gray-200 px-2 py-1 rounded">gmail.com</code>。</li>
+                        <li>點擊「建立帳戶」，按照畫面指示填寫資料。</li>
+                        <li><span class="font-bold text-red-600">重要：</span>你設定的 Email 地址和密碼一定要抄下來保管好！</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 新增關卡三：Chrome 探險家 -->
+        <section id="level3-new" class="section-card">
+            <div class="flex items-center mb-6">
+                <div class="level-bubble mr-6">第三關</div>
+                <div>
+                    <h2 class="text-4xl font-bold text-gray-900">Chrome 探險家</h2>
+                    <p class="text-xl text-gray-600 mt-1">書籤、分頁與實用網站一網打盡！</p>
+                </div>
+            </div>
+            <div class="grid md:grid-cols-2 gap-8 items-center">
+                <div class="prose max-w-none text-lg">
+                    <h3 class="text-2xl font-bold gradient-text">書籤就是你的傳送門</h3>
+                    <p>看到很棒的網站，怕下次找不到？用「書籤」把它存起來！就像在書裡夾一張書籤一樣方便。</p>
+                    <ol class="list-decimal pl-5 space-y-2">
+                       <li>在網址列最右邊，找到一個「星星 ☆」圖示，點下去！</li>
+                       <li>你可以直接儲存，或是選擇一個檔案夾分類。</li>
+                       <li><span class="font-bold">小技巧：</span>按下快捷鍵 <code class="bg-gray-200 px-1 rounded">Shift + Command + B</code> 可以顯示或隱藏「書籤列」，讓你點一下就能快速前往常用網站！</li>
+                    </ol>
+                     <h3 class="text-2xl font-bold gradient-text mt-6">Google 工具箱簡介</h3>
+                     <p>有了 Google 帳號，你就擁有了一整套免費又強大的雲端工具，在任何電腦登入都能用！</p>
+                     <ul class="list-disc pl-5 space-y-2">
+                         <li><strong>Google 文件：</strong>線上版 Word，打報告超方便，還能跟同學共同編輯。</li>
+                         <li><strong>Google 試算表：</strong>線上版 Excel，做圖表、整理數據的好幫手。</li>
+                         <li><strong>Google 簡報：</strong>線上版 PowerPoint，做上台報告的利器。</li>
+                         <li><strong>Google 翻譯：</strong>線上版 多國語言詞典，查詢單字好幫手。</li>
+                         <li><strong>Google AI：</strong>線上版 小幫手，誰說國中生不能有助手。</li>
+                         <li><strong>Google 雲端硬碟：</strong>雲端空間，儲存數位資產用。</li>
+                     </ul>
+                </div>
+                <div>
+                    <h3 class="text-2xl font-bold gradient-text mb-4">推薦網站百寶袋</h3>
+                    <p class="mb-4 text-gray-600">這些網站對你的學習和生活超有幫助，快把它們加到書籤吧！</p>
+                    <div class="grid grid-cols-2 gap-4">
+                        <a href="https://www.youtube.com" target="_blank" class="block p-4 bg-red-50 rounded-lg hover:bg-red-100 transition"><strong>YouTube</strong><br><span class="text-sm text-gray-600">影音學習娛樂</span></a>
+                        <a href="https://news.google.com.tw/" target="_blank" class="block p-4 bg-blue-50 rounded-lg hover:bg-blue-100 transition"><strong>Google 新聞</strong><br><span class="text-sm text-gray-600">關心天下事</span></a>
+                        <a href="https://artsandculture.google.com/" target="_blank" class="block p-4 bg-yellow-50 rounded-lg hover:bg-yellow-100 transition"><strong>Google 藝術與文化</strong><br><span class="text-sm text-gray-600">線上逛博物館</span></a>
+                        <a href="https://www.coolenglish.edu.tw/" target="_blank" class="block p-4 bg-green-50 rounded-lg hover:bg-green-100 transition"><strong>Cool English</strong><br><span class="text-sm text-gray-600">超酷的英語學習平台</span></a>
+                    </div>
+                     <img src="https://ask.qcloudimg.com/http-save/yehe-6626672/sj9am5bo1h.jpeg?imageView2/2/w/2560/h/7000" alt="瀏覽器書籤示意圖" class="mt-6 rounded-xl shadow-lg w-full h-auto object-cover" onerror="this.onerror=null;this.src='https://placehold.co/600x400/e2e8f0/64748b?text=[實用網站]';">
+                </div>
+            </div>
+             <details>
+                <summary>Chrome 探險家挑戰</summary>
+                <div class="mt-4 prose max-w-none">
+                    <ol>
+                        <li>打開書籤列 (<code class="bg-gray-200 px-1 rounded">Shift + Command + B</code>)。</li>
+                        <li>在書籤列上用「雙指點按」叫出選單，選擇「新增檔案夾」，命名為「我的最愛」。</li>
+                        <li>前往上面推薦的其中 3 個網站，並將它們加入「我的最愛」檔案夾中。</li>
+                        <li>挑戰成功！你已經掌握了網路衝浪的必備技能！</li>
+                    </ol>
+                </div>
+            </details>
+        </section>
+
+
+        <!-- 關卡四：Mac 大師速成班 (擴充與互動) -->
+        <section id="level4" class="section-card">
+            <div class="flex items-center mb-6">
+                <div class="level-bubble mr-6">第四關</div>
+                <div>
+                    <h2 class="text-4xl font-bold text-gray-900">Mac 大師速成班</h2>
+                    <p class="text-xl text-gray-600 mt-1">從此擺脫滑鼠，操作行雲流水！</p>
+                </div>
+            </div>
+            
+            <div class="space-y-12">
+                <!-- 觸控板與影片教學 -->
+                <div>
+                    <h3 class="text-3xl font-bold gradient-text mb-4">A. 神奇觸控板</h3>
+                    <div class="grid md:grid-cols-2 gap-8 items-center">
+                        <div class="prose max-w-none text-lg">
+                            <p>Mac 的觸控板超好用，學會這幾招，你就不太需要滑鼠了！直接看影片學最快！</p>
+                            <ul class="list-disc pl-5 space-y-2">
+                                <li><strong>單指點按：</strong>就是滑鼠左鍵。</li>
+                                <li><strong>雙指點按：</strong>就是滑鼠右鍵，可以叫出選單。</li>
+                                <li><strong>雙指上下滑動：</strong>滾動網頁或文件。</li>
+                                <li><strong>雙指開合：</strong>放大或縮小圖片、網頁。</li>
+                                <li><strong>三指或四指左右滑動：</strong>在不同桌面或全螢幕 App 之間切換。</li>
+                                <li><strong>四指向上滑：</strong>叫出「指揮中心」，看到所有已開的視窗。</li>
+                            </ul>
+                        </div>
+                        <div class="video-container">
+                            <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/VDiNWe6iZKA?si=ETS14GAxcC_4xCcd&amp;start=44" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                     <details>
+                        <summary>觸控板小挑戰</summary>
+                        <div class="mt-4 prose max-w-none">
+                            <ol>
+                                <li>試試看用「雙指上下滑動」來閱讀完這個網頁。</li>
+                                <li>找到頁面中的一張圖片，用「雙指開合」手勢放大再縮小它。</li>
+                                <li>打開兩個不同的應用程式(例如 Chrome 和 Finder)，練習用「三指左右滑動」來切換它們。</li>
+                            </ol>
+                        </div>
+                    </details>
+                </div>
+                
+                <!-- Finder 與檔案管理 -->
+                <div>
+                     <h3 class="text-3xl font-bold gradient-text mb-4">B. 你的數位書包：Finder</h3>
+                     <div class="grid md:grid-cols-2 gap-8 items-center">
+                         <div class="prose max-w-none text-lg">
+                             <p><strong>Finder</strong> (藍白笑臉圖案) 是 Mac 的檔案總管。你所有的檔案、照片、作業都住在這裡。學會整理，才不會找不到東西喔！</p>
+                             <ul class="list-disc pl-5 space-y-2">
+                               <li><strong>新增檔案夾：</strong>在任何地方（例如桌面或文件檔案夾），用「雙指點按」叫出選單，選擇「新增檔案夾」。</li>
+                               <li><strong>重新命名：</strong>點一下檔案或檔案夾，等一秒再點一下，就可以改名字了。或者點選檔案後，直接按 <code class="bg-gray-200 px-1 rounded">Enter</code> 鍵。</li>
+                               <li><strong>搬移檔案：</strong>直接用滑鼠拖曳檔案到目標檔案夾。</li>
+                               <li><strong>複製檔案：</strong>按住 <code class="bg-gray-200 px-1 rounded">Option</code> 鍵，再拖曳檔案，就會複製出一個分身。</li>
+                               <li><strong>刪除檔案：</strong>把檔案拖到 Dock 最右邊的「垃圾桶」，或是點選檔案後按快捷鍵 <code class="bg-gray-200 px-1 rounded">Command + Delete</code>。</li>
+                            </ul>
+                         </div>
+                         <div>
+                            <img src="https://www.koc.com.tw/wp-content/uploads/2022/03/1647836534-ae566253288191ce5d879e51dae1d8c3.jpg" alt="整理檔案的示意圖" class="rounded-xl shadow-lg w-full h-auto object-cover" onerror="this.onerror=null;this.src='https://placehold.co/600x400/e2e8f0/64748b?text=[Finder 檔案整理]';">
+                         </div>
+                     </div>
+                     <details>
+                        <summary>檔案管理小挑戰</summary>
+                        <div class="mt-4 prose max-w-none">
+                            <ol>
+                                <li>在「桌面」上，新增一個檔案夾，並將它命名為「我的國中生活」。</li>
+                                <li>在這個檔案夾裡面，再新增三個檔案夾，分別叫做「國文」、「英文」、「數學」。</li>
+                                <li>恭喜你！你已經學會了基本的檔案整理技巧！</li>
+                            </ol>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- 必學快捷鍵 -->
+                <div>
+                     <h3 class="text-3xl font-bold gradient-text mb-4">C. 必學快捷鍵</h3>
+                     <p class="text-lg text-gray-600">學會快捷鍵，你會發現操作電腦的速度快了好幾倍，看起來也超專業！</p>
+                     <div class="overflow-x-auto mt-4">
+                         <table class="w-full text-left border-collapse">
+                             <thead class="bg-indigo-50">
+                                 <tr>
+                                     <th class="p-4 border rounded-tl-lg">功能</th>
+                                     <th class="p-4 border">快捷鍵</th>
+                                     <th class="p-4 border rounded-tr-lg">說明</th>
+                                 </tr>
+                             </thead>
+                             <tbody>
+                                 <tr class="hover:bg-gray-50">
+                                     <td class="p-4 border font-mono">複製 (Copy)</td>
+                                     <td class="p-4 border font-bold"><code class="bg-gray-200 p-2 rounded-md">Command + C</code></td>
+                                     <td class="p-4 border">複製選取的文字或檔案</td>
+                                 </tr>
+                                 <tr class="hover:bg-gray-50">
+                                     <td class="p-4 border font-mono">貼上 (Paste)</td>
+                                     <td class="p-4 border font-bold"><code class="bg-gray-200 p-2 rounded-md">Command + V</code></td>
+                                     <td class="p-4 border">貼上剛剛複製的內容</td>
+                                 </tr>
+                                  <tr class="hover:bg-gray-50">
+                                     <td class="p-4 border font-mono">復原 (Undo)</td>
+                                     <td class="p-4 border font-bold"><code class="bg-gray-200 p-2 rounded-md">Command + Z</code></td>
+                                     <td class="p-4 border">回到上一步，做錯事的後悔藥！</td>
+                                 </tr>
+                                  <tr class="hover:bg-gray-50">
+                                     <td class="p-4 border font-mono">螢幕截圖</td>
+                                     <td class="p-4 border font-bold"><code class="bg-gray-200 p-2 rounded-md">Shift + Command + 4</code></td>
+                                     <td class="p-4 border">滑鼠會變成十字，自己框選想截圖的範圍</td>
+                                 </tr>
+                                 <tr class="hover:bg-gray-50">
+                                     <td class="p-4 border font-mono rounded-bl-lg">萬能搜尋</td>
+                                     <td class="p-4 border font-bold"><code class="bg-gray-200 p-2 rounded-md">Command + Space</code></td>
+                                     <td class="p-4 border rounded-br-lg">叫出 Spotlight，找檔案、開 App、查單字都靠它</td>
+                                 </tr>
+                             </tbody>
+                         </table>
+                     </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 關卡五：資安基本觀念 -->
+        <section id="level5" class="section-card">
+            <div class="flex items-center mb-6">
+                <div class="level-bubble mr-6">第五關</div>
+                <div>
+                    <h2 class="text-4xl font-bold text-gray-900">網路世界的安全守則</h2>
+                    <p class="text-xl text-gray-600 mt-1">保護自己，遠離危險</p>
+                </div>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-12 items-center mt-8">
+                <div>
+                    <img src="https://images.pexels.com/photos/60504/security-protection-anti-virus-software-60504.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="網路安全概念圖" class="rounded-xl shadow-lg w-full h-auto object-cover" onerror="this.onerror=null;this.src='https://placehold.co/600x400/e2e8f0/64748b?text=[網路安全概念圖]';">
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div class="bg-purple-50 p-6 rounded-xl hover:shadow-lg transition-shadow">
+                        <h3 class="text-xl font-bold text-purple-800">密碼金庫</h3>
+                        <p class="mt-2 text-gray-700">密碼就像你家鑰匙，絕對不能給別人！設定一個「長度夠長、混合英文大小寫和數字」的密碼。</p>
+                    </div>
+                    <div class="bg-blue-50 p-6 rounded-xl hover:shadow-lg transition-shadow">
+                        <h3 class="text-xl font-bold text-blue-800">小心下載！</h3>
+                        <p class="mt-2 text-gray-700">不要從來路不明的網站下載遊戲或軟體，盡量從 App Store 或官網下載最安全。</p>
+                    </div>
+                    <div class="bg-yellow-50 p-6 rounded-xl hover:shadow-lg transition-shadow">
+                        <h3 class="text-xl font-bold text-yellow-800">神秘連結點不點？</h3>
+                        <p class="mt-2 text-gray-700">收到「恭喜你中獎了！」這類的陌生訊息，裡面的連結千萬別亂點！</p>
+                    </div>
+                    <div class="bg-green-50 p-6 rounded-xl hover:shadow-lg transition-shadow">
+                        <h3 class="text-xl font-bold text-green-800">保護你的小秘密</h3>
+                        <p class="mt-2 text-gray-700">不要在網路上隨意告訴陌生人你的真實姓名、地址、電話或學校。</p>
+                    </div>
+                </div>
+            </div>
+             <details>
+                <summary>資安小測驗</summary>
+                <div class="mt-4 prose max-w-none">
+                    <p><strong>情境題：</strong>你在網路上收到一封 Email，標題是「您的帳號有安全風險，請立即點此連結修改密碼！」，你會怎麼做？</p>
+                    <p><strong>(A)</strong> 立刻點進去，趕快修改密碼保護帳號！</p>
+                    <p><strong>(B)</strong> 這可能是詐騙，不要點連結。自己打開瀏覽器，手動輸入官方網站的網址，登入後再檢查帳號狀況。</p>
+                    <p><strong>(C)</strong> 不理它，反正應該是假的。</p>
+                    <hr>
+                    <p><strong>正確答案是 (B)！</strong> 這是最安全的做法，可以避免你點到假的釣魚網站喔！</p>
+                </div>
+            </details>
+        </section>
+
+        <!-- 終極試煉 -->
+        <section id="final-challenge" class="section-card bg-gradient-to-br from-indigo-500 to-purple-600 text-white">
+            <div class="flex items-center mb-6">
+                <div class="level-bubble mr-6 !bg-white !text-indigo-600">第六關</div>
+                <div>
+                    <h2 class="text-4xl font-bold">終極試煉：Mac 小達人</h2>
+                    <p class="text-xl text-purple-200 mt-1">結合所學，完成你的第一個 Mac 任務！</p>
+                </div>
+            </div>
+            <div class="prose prose-invert max-w-none text-lg text-purple-100">
+                <p>恭喜你來到最後一關！現在，請你運用前面學到的技巧，完成下面的任務，證明你已經是合格的 Mac 小達人了！</p>
+                <ol>
+                    <li>打開 Mac 內建的文書處理軟體 <strong>Pages</strong> (橘色墨水筆圖案)。</li>
+                    <li>在 Pages 裡，打一篇至少50字的自我介紹。</li>
+                    <li>使用快捷鍵 <code class="bg-gray-700 px-1 rounded">Shift + Command + 4</code>，截取你打好的自我介紹畫面，存到「桌面」。</li>
+                    <li>在「桌面」上新增一個檔案夾，命名為「我的第一個Mac作業」。</li>
+                    <li>把你剛剛的截圖，以及儲存的 Pages 文件，都放進這個檔案夾裡。</li>
+                </ol>
+                <p class="mt-6 font-bold text-2xl text-white">當你完成以上所有步驟，你就正式從 Mac 新手村畢業啦！</p>
+            </div>
+        </section>
+
+        <!-- 新增最終章節：老師的話 -->
+        <section id="epilogue" class="section-card border-2 border-amber-300 bg-amber-50">
+             <div class="flex items-center mb-6">
+                <div class="level-bubble mr-6 !bg-gradient-to-br !from-amber-400 !to-orange-500">彩蛋</div>
+                <div>
+                    <h2 class="text-4xl font-bold text-gray-900">隱藏關卡：老師的書櫃</h2>
+                    <p class="text-xl text-gray-600 mt-1">學習永無止境，人生也是一場探險</p>
+                </div>
+            </div>
+            <div class="grid md:grid-cols-2 gap-10 items-center">
+                <div class="prose max-w-none text-lg text-gray-700">
+                    <p>這不只是教你如何使用電腦的課程，更希望開啟你探索世界的一扇窗。</p>
+                    
+                    <blockquote class="border-l-4 border-orange-400 pl-4 italic text-gray-800 bg-orange-50 my-6 p-4 rounded-r-lg shadow-inner">
+                        <p class="!mt-0">為什麼要學習？老師認為，<strong>學習是為了降低人生的不確定性</strong>。因為人生有太多無法掌控的事，但透過學習，我們可以更好地去面對。</p>
+                    </blockquote>
+
+                    <p>對於<strong>可以控制的</strong>，我們要勇敢執行；對於<strong>不能控制的</strong>，我們要冷靜處理。希望你在未來的日子裡，能記住三件事：</p>
+                    
+                    <div class="space-y-4 !mt-6">
+                        <div class="bg-white p-4 rounded-lg shadow-md border border-gray-200 flex items-start">
+                            <strong class="mr-3 text-2xl text-orange-600">💡</strong>
+                            <div>
+                                <h4 class="font-bold text-orange-800">充滿好奇</h4>
+                                <p class="!mt-1 !mb-0 text-base">對世界萬物保持疑問，永遠不要失去想知道「為什麼」的心。</p>
+                            </div>
+                        </div>
+                         <div class="bg-white p-4 rounded-lg shadow-md border border-gray-200 flex items-start">
+                            <strong class="mr-3 text-2xl text-orange-600">🎨</strong>
+                            <div>
+                                <h4 class="font-bold text-orange-800">保持創造</h4>
+                                <p class="!mt-1 !mb-0 text-base">不只是模仿，更要思考如何用你的方法，讓事情變得更好、更有趣。</p>
+                            </div>
+                        </div>
+                         <div class="bg-white p-4 rounded-lg shadow-md border border-gray-200 flex items-start">
+                            <strong class="mr-3 text-2xl text-orange-600">🚀</strong>
+                            <div>
+                                <h4 class="font-bold text-orange-800">勇敢執行</h4>
+                                <p class="!mt-1 !mb-0 text-base">想法很棒，但做出來更重要。不要怕犯錯，那是成長的養分。</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <p class="font-bold mt-8 text-center text-xl bg-clip-text text-transparent bg-gradient-to-r from-amber-600 to-orange-700">記住，每一天都很美好，端看你用什麼樣的心態去迎接它！</p>
+                </div>
+                <div class="max-w-md mx-auto">
+                     <img src="https://i.ibb.co/7tr4z7tm/6-FE7476-D-B1-EB-4-BD2-A455-93-F3-C01-F9-A1-C.jpg" alt="老師的書櫃，象徵學無止境" class="rounded-xl shadow-lg w-full h-auto object-cover" onerror="this.onerror=null;this.src='https://placehold.co/600x800/e2e8f0/64748b?text=[老師的書櫃]';">
+                     <p class="text-center text-gray-500 mt-2 italic">老師的書櫃・學無止境</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white mt-8">
+        <div class="container mx-auto px-6 py-8 text-center">
+            <p>🎉 恭喜你完成 Mac 新手村的所有挑戰！ 🎉</p>
+            <p class="mt-2 text-gray-400">勇敢去探索吧，數位世界等著你！</p>
+        </div>
+    </footer>
+
+</body>
+</html>
