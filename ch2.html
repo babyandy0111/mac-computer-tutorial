@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google 雲端特務：文件協作與電腦解密</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+        }
+
+        .section-card {
+            background-color: white;
+            border-radius: 1.5rem;
+            padding: 2.5rem;
+            margin-bottom: 2.5rem;
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            border: 1px solid #e5e7eb;
+        }
+
+        .section-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+        }
+
+        .gradient-text {
+            background-image: linear-gradient(to right, #10b981, #3b82f6, #8b5cf6);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .level-bubble {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 4rem;
+            height: 4rem;
+            border-radius: 9999px;
+            background-image: linear-gradient(to right, #3b82f6, #10b981);
+            color: white;
+            font-weight: 700;
+            font-size: 1.25rem;
+            flex-shrink: 0;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        }
+
+        details {
+            border-radius: 0.75rem;
+            border: 2px dashed #d1d5db;
+            padding: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        summary {
+            font-weight: 700;
+            color: #1e40af;
+            cursor: pointer;
+            list-style-type: '🕵️ ';
+        }
+
+        /* 子任務樣式 */
+        .sub-task {
+            border-left: 4px solid #3b82f6;
+            padding-left: 1.5rem;
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+<!-- Header -->
+<header class="bg-white shadow-md sticky top-0 z-10">
+    <div class="container mx-auto px-6 py-4">
+        <h1 class="text-3xl font-bold gradient-text">Google 雲端特務</h1>
+        <p class="text-gray-600 mt-1">文件協作與電腦解密，成為數位時代的頂尖探員！</p>
+    </div>
+</header>
+
+<main class="container mx-auto px-6 py-12">
+
+    <!-- 任務一：Gmail 基礎情報術 -->
+    <section id="task1" class="section-card">
+        <div class="flex items-center mb-6">
+            <div class="level-bubble mr-6">任務一</div>
+            <div>
+                <h2 class="text-4xl font-bold text-gray-900">Gmail 基礎情報術</h2>
+                <p class="text-xl text-gray-600 mt-1">新進特務報到，建立你的情報中心</p>
+            </div>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-8 items-center">
+            <div class="prose max-w-none text-lg">
+                <p>特務，歡迎來到你的情報中心——Gmail！這裡是你管理所有數位任務的總部。我們先從最核心的三個技巧開始！</p>
+                <ul class="list-disc pl-5 space-y-3">
+                    <li><strong>撰寫第一封情報信：</strong>點擊左上角的「+ 撰寫」按鈕，向總部報到。
+                        <ul class="list-['-_'] pl-5 text-base">
+                            <li><strong>收件者：</strong>輸入總部代號 (<code class="bg-gray-200 px-1 rounded">wang.shih.hua.tw@gmail.com</code>)。
+                            </li>
+                            <li><strong>主旨：</strong>情報的標題，要清楚明瞭，例如「新進特務報到 - 你的名字」。</li>
+                            <li><strong>附加檔案：</strong>點擊「迴紋針」圖示，可以夾帶圖片或文件，傳送證據！</li>
+                        </ul>
+                    </li>
+                    <li><strong>標籤分類法：</strong>情報太多會很亂！用「標籤」來分類！你可以為「學校任務」、「機密檔案」建立不同顏色的標籤，讓情報一目了然。
+                    </li>
+                    <li><strong>搜尋超能力：</strong>頂端的搜尋框是你的最強武器！可以直接打關鍵字，或是用 <code
+                            class="bg-gray-200 px-1 rounded">from:Andy Sir</code> 來尋找特定探員的信件。
+                    </li>
+                </ul>
+            </div>
+            <div>
+                <img src="https://images.pexels.com/photos/4145355/pexels-photo-4145355.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+                     alt="Gmail 基本操作介面" class="rounded-xl shadow-lg w-full h-auto object-cover"
+                     onerror="this.onerror=null;this.src='https://placehold.co/600x400/e2e8f0/64748b?text=Gmail 基本操作';">
+            </div>
+        </div>
+    </section>
+
+    <!-- 任務二：Gmail 進階特務技巧 -->
+    <section id="task2" class="section-card">
+        <div class="flex items-center mb-6">
+            <div class="level-bubble mr-6">任務二</div>
+            <div>
+                <h2 class="text-4xl font-bold text-gray-900">Gmail 進階特務技巧</h2>
+                <p class="text-xl text-gray-600 mt-1">效率就是你的最強武器</p>
+            </div>
+        </div>
+        <div class="grid md:grid-cols-2 gap-8 items-center">
+            <div>
+                <img src="https://images.pexels.com/photos/5439427/pexels-photo-5439427.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+                     alt="提升工作效率" class="rounded-xl shadow-lg w-full h-auto object-cover"
+                     onerror="this.onerror=null;this.src='https://placehold.co/600x400/e2e8f0/64748b?text=Gmail 進階技巧';">
+            </div>
+            <div class="prose max-w-none text-lg">
+                <p>學會基礎後，來看看職業特務都怎麼用 Gmail 提升效率，讓敵人看不到你的車尾燈！</p>
+                <ul class="list-disc pl-5 space-y-3">
+                    <li><strong>打造你的專屬簽名檔：</strong>讓每封情報都有你酷酷的結尾！到「設定」>「查看所有設定」>「簽名」區塊，你可以打上你的特務代號和座右銘！
+                    </li>
+                    <li><strong>設定智慧篩選器 (Filter)：</strong>讓 Gmail 自動幫你整理情報！例如，你可以設定：「所有來自總部的信，都自動加上『最高機密』標籤」。
+                    </li>
+                    <li><strong>預約未來信件：</strong>半夜完成任務報告，但想早上8點再寄出？寫完信後，點擊「傳送」旁邊的「小箭頭」，選擇「排定傳送時間」。
+                    </li>
+                    <li><strong>黃金30秒反悔術：</strong>送出才發現情報有誤？快到「設定」裡，把「取消傳送」的時間延長到 30
+                        秒，給你足夠的時間收回訊息！
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <details>
+            <summary>Gmail 特務挑戰 (升級版)</summary>
+            <div class="mt-4 prose max-w-none">
+                <ol>
+                    <li><strong>設定簽名檔：</strong>進到設定，建立一個包含你的「姓名」和「一句話座右銘」的簽名檔。</li>
+                    <li><strong>建立篩選器：</strong>設定一個篩選器，讓所有來自老師 Email 的信件，都會「自動加上『電腦課』的標籤」。
+                    </li>
+                    <li><strong>寄出挑戰信：</strong>寄一封Email給老師，主旨是「Gmail 特務挑戰 -
+                        你的名字」，內文是你的座右銘。(你的簽名檔應該會自動附上！)
+                    </li>
+                    <li><strong>驗收成果：</strong>等老師回信給你後，看看那封信是不是自動被貼上「電腦課」的標籤了！</li>
+                    <li>挑戰成功！你已晉升為資深情報員！</li>
+                </ol>
+            </div>
+        </details>
+    </section>
+
+    <!-- 任務三：Google 文件協作基地 -->
+    <section id="task3" class="section-card">
+        <div class="flex items-center mb-6">
+            <div class="level-bubble mr-6">任務三</div>
+            <div>
+                <h2 class="text-4xl font-bold text-gray-900">Google 文件協作基地</h2>
+                <p class="text-xl text-gray-600 mt-1">學習團隊合作，打造完美報告</p>
+            </div>
+        </div>
+        <div class="grid md:grid-cols-2 gap-8 items-center">
+            <div>
+                <img src="https://images.pexels.com/photos/3184339/pexels-photo-3184339.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+                     alt="團隊進行文件協作" class="rounded-xl shadow-lg w-full h-auto object-cover"
+                     onerror="this.onerror=null;this.src='https://placehold.co/600x400/e2e8f0/64748b?text=Google 文件協作';">
+            </div>
+            <div class="prose max-w-none text-lg">
+                <p>單打獨鬥的時代過去了！Google 文件是專為團隊設計的「雲端作戰室」，所有人可以同時在線上編輯同一份文件！</p>
+                <ol class="list-decimal pl-5 space-y-3">
+                    <li><strong>建立新文件：</strong>在 Google 雲端硬碟，點擊「+ 新增」>「Google 文件」。</li>
+                    <li><strong>基礎排版：</strong>改變字體大小、顏色、加上粗體，讓文件更有重點。試著插入一張圖片！</li>
+                    <li><strong>邀請夥伴 (共用)：</strong>點擊右上角的「共用」按鈕，輸入隊友的 Gmail，並設定權限為「編輯者」。
+                    </li>
+                    <li><strong>留言溝通：</strong>選取一段文字，右邊會出現「💬」圖示，點擊後可以針對這段文字留言討論，超方便！
+                    </li>
+                </ol>
+            </div>
+        </div>
+        <details>
+            <summary>Google 文件團隊挑戰</summary>
+            <div class="mt-4 prose max-w-none">
+                <p><strong>分組任務：</strong></p>
+                <ol>
+                    <li>由組長建立一份 Google 文件，標題為「我們這組最酷的午餐」。</li>
+                    <li>組長透過「共用」功能，將文件分享給所有組員和老師 (設定為編輯者)。</li>
+                    <li>每位組員在文件上，用文字和圖片介紹自己最喜歡的一道午餐菜色。</li>
+                    <li>用「留言」功能，互相稱讚或吐槽對方的午餐選擇！</li>
+                </ol>
+            </div>
+        </details>
+    </section>
+
+    <!-- 任務四：解碼檔案格式 -->
+    <section id="task4" class="section-card">
+        <div class="flex items-center mb-6">
+            <div class="level-bubble mr-6">任務四</div>
+            <div>
+                <h2 class="text-4xl font-bold text-gray-900">解碼檔案格式</h2>
+                <p class="text-xl text-gray-600 mt-1">認識數位世界裡的各種神秘檔案</p>
+            </div>
+        </div>
+        <div class="prose max-w-none text-lg">
+            <p>特務們，你在網路上會遇到各種長得不一樣的檔案，它們的「副檔名」(檔名最後的小數點後面的文字)
+                就像是它們的身分證，告訴你這個檔案是什麼類型、該用什麼工具打開。讓我們來認識幾個最常見的情報格式！</p>
+        </div>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
+            <!-- JPG/JPEG -->
+            <div class="bg-yellow-50 p-6 rounded-xl hover:shadow-lg transition-shadow">
+                <h3 class="text-xl font-bold text-yellow-800">JPG / JPEG</h3>
+                <p class="mt-2 text-gray-700"><strong>最常見的照片檔。</strong> 它的特點是會「壓縮」檔案，讓檔案變小但畫質依然不錯，適合用在網頁和傳送給朋友。
+                </p>
+                <p class="text-sm mt-2 font-semibold">比喻：數位世界的照片底片。</p>
+            </div>
+            <!-- PNG -->
+            <div class="bg-blue-50 p-6 rounded-xl hover:shadow-lg transition-shadow">
+                <h3 class="text-xl font-bold text-blue-800">PNG</h3>
+                <p class="mt-2 text-gray-700"><strong>支援「透明背景」的圖片檔。</strong> 如果你想要一個去背的 logo
+                    或圖案，像貼紙一樣可以貼在任何背景上，用它就對了！</p>
+                <p class="text-sm mt-2 font-semibold">比喻：數位世界的透明貼紙。</p>
+            </div>
+            <!-- GIF -->
+            <div class="bg-purple-50 p-6 rounded-xl hover:shadow-lg transition-shadow">
+                <h3 class="text-xl font-bold text-purple-800">GIF</h3>
+                <p class="mt-2 text-gray-700"><strong>會動的圖片！</strong> 它是由好幾張圖片連續播放組成的動畫，檔案小，適合用在網路上的短動畫或表情包。
+                </p>
+                <p class="text-sm mt-2 font-semibold">比喻：數位世界的翻頁動畫書。</p>
+            </div>
+            <!-- PDF -->
+            <div class="bg-red-50 p-6 rounded-xl hover:shadow-lg transition-shadow">
+                <h3 class="text-xl font-bold text-red-800">PDF</h3>
+                <p class="mt-2 text-gray-700"><strong>跨平台的萬用文件檔。</strong>
+                    無論在哪台電腦或手機打開，格式都不會跑掉，非常適合用來繳交正式的報告或文件。</p>
+                <p class="text-sm mt-2 font-semibold">比喻：數位世界的「影印本」。</p>
+            </div>
+            <!-- DMG -->
+            <div class="bg-gray-50 border border-gray-200 p-6 rounded-xl hover:shadow-lg transition-shadow">
+                <h3 class="text-xl font-bold text-gray-800">DMG</h3>
+                <p class="mt-2 text-gray-700"><strong>Mac 專用的軟體安裝檔。</strong> 當你從網路上下載 Mac
+                    軟體時，通常會是這個格式。打開它就像打開一個虛擬的光碟，把裡面的 App 拖到應用程式檔案夾即可。</p>
+                <p class="text-sm mt-2 font-semibold">比喻：Mac 軟體的「安裝光碟」。</p>
+            </div>
+            <!-- More -->
+            <div class="bg-green-50 p-6 rounded-xl hover:shadow-lg transition-shadow">
+                <h3 class="text-xl font-bold text-green-800">還有更多...</h3>
+                <p class="mt-2 text-gray-700">數位世界還有 MP3 (音樂檔), MP4 (影片檔), ZIP (壓縮檔)...
+                    等待你去發掘！只要看懂副檔名，你就能了解如何處理它們。</p>
+            </div>
+        </div>
+        <details>
+            <summary>檔案格式辨識挑戰</summary>
+            <div class="mt-4 prose max-w-none">
+                <p><strong>情境題：</strong>老師請你交一份不能被輕易修改、且在每台電腦看起來都一樣的讀書心得報告，你會存成什麼格式？
+                </p>
+                <p><strong>(A)</strong> JPG，因為是圖片最方便。</p>
+                <p><strong>(B)</strong> PDF，因為格式不會跑掉。</p>
+                <p><strong>(C)</strong> GIF，因為可以讓文字動起來很酷。</p>
+                <hr>
+                <p><strong>正確答案是 (B)！</strong> PDF 是繳交正式文件的最佳選擇喔！</p>
+            </div>
+        </details>
+    </section>
+
+    <!-- 任務五：解密電腦運作核心 -->
+    <section id="task5" class="section-card">
+        <div class="flex items-center mb-6">
+            <div class="level-bubble mr-6">任務五</div>
+            <div>
+                <h2 class="text-4xl font-bold text-gray-900">解密電腦運作核心</h2>
+                <p class="text-xl text-gray-600 mt-1">揭開 0 與 1 世界的神秘面紗</p>
+            </div>
+        </div>
+        <div class="prose max-w-none text-lg">
+            <p>每天都在用電腦，但你知道電腦是怎麼思考的嗎？它不像人類，它只看得懂 0 和
+                1！這就像一種神秘的摩斯密碼，我們來一起破解它！</p>
+        </div>
+
+        <!-- 子任務 5.1 -->
+        <div class="sub-task grid md:grid-cols-2 gap-8 items-center">
+            <div class="prose max-w-none text-lg">
+                <h3 class="text-2xl font-bold gradient-text">1. 二進位與資料：電腦的語言</h3>
+                <p>電腦的世界很單純，只有開(1)和關(0)。就像電燈開關一樣。你看到的文字、圖片、影片，在電腦眼裡，全都是由 <code
+                        class="bg-gray-200 px-1 rounded">010101</code> 組成的密碼。</p>
+                <p><strong>例如：</strong> 英文字母 "A" 在電腦裡的密碼就是 <code class="bg-gray-200 px-1 rounded">01000001</code>。是不是很神奇！
+                </p>
+            </div>
+            <div>
+                <img src="https://images.pexels.com/photos/5474028/pexels-photo-5474028.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+                     alt="二進位碼" class="rounded-xl shadow-lg"
+                     onerror="this.onerror=null;this.src='https://placehold.co/600x400/e2e8f0/64748b?text=二進位碼';">
+            </div>
+        </div>
+        <!-- 子任務 5.2 -->
+        <div class="sub-task grid md:grid-cols-2 gap-8 items-center">
+            <div>
+                <img src="https://images.pexels.com/photos/220301/pexels-photo-220301.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+                     alt="電路板" class="rounded-xl shadow-lg"
+                     onerror="this.onerror=null;this.src='https://placehold.co/600x400/e2e8f0/64748b?text=電路板';">
+            </div>
+            <div class="prose max-w-none text-lg">
+                <h3 class="text-2xl font-bold gradient-text">2. 電路與邏輯：電腦的思考方式</h3>
+                <p>電腦裡面有數億個微小的「開關」(電晶體)，透過這些開關的組合，來進行「如果...就...」的判斷和運算。</p>
+                <p><strong>例如：</strong> 「如果」我按下了鍵盤的 A，開關就會組合成 <code class="bg-gray-200 px-1 rounded">01000001</code>，「就」在螢幕上顯示出
+                    "A"。這就是最基本的電腦邏輯！</p>
+            </div>
+        </div>
+        <!-- 子任務 5.3 -->
+        <div class="sub-task grid md:grid-cols-2 gap-8 items-center">
+            <div class="prose max-w-none text-lg">
+                <h3 class="text-2xl font-bold gradient-text">3. CPU：電腦的大腦</h3>
+                <p>中央處理器 (CPU) 是電腦最核心的大腦，負責執行所有指令和計算，決定了電腦跑得快不快。</p>
+                <p><strong>例如：</strong> CPU 就像一個超高速的廚師，你點餐（下指令），他立刻看懂食譜（程式），快速地把菜（結果）做出來給你。
+                </p>
+            </div>
+            <div>
+                <img src="./images/1.jpg"
+                     alt="CPU 晶片" class="rounded-xl shadow-lg"
+                     onerror="this.onerror=null;this.src='https://placehold.co/600x400/e2e8f0/64748b?text=CPU 晶片';">
+            </div>
+        </div>
+        <!-- 子任務 5.4 -->
+        <div class="sub-task grid md:grid-cols-2 gap-8 items-center">
+            <div>
+                <img src="./images/2.jpg"
+                     alt="記憶體" class="rounded-xl shadow-lg"
+                     onerror="this.onerror=null;this.src='https://placehold.co/600x400/e2e8f0/64748b?text=記憶體';">
+            </div>
+            <div class="prose max-w-none text-lg">
+                <h3 class="text-2xl font-bold gradient-text">4. 記憶體 & 輸入輸出</h3>
+                <p>記憶體 (RAM) 是 CPU
+                    的臨時工作桌，工作中的資料會暫時放在這裡。鍵盤、滑鼠是告訴電腦事情的「輸入」設備；螢幕、喇叭則是電腦告訴你結果的「輸出」設備。</p>
+                <p><strong>例如：</strong> 你打報告時，文字暫存在記憶體；鍵盤是「輸入」文字；螢幕是「輸出」文字讓你看到。</p>
+            </div>
+        </div>
+        <!-- 子任務 5.5 -->
+        <div class="sub-task grid md:grid-cols-2 gap-8 items-center">
+            <div class="prose max-w-none text-lg">
+                <h3 class="text-2xl font-bold gradient-text">5. 硬體與軟體：電腦的身體與靈魂</h3>
+                <p>你看得到摸得到的，像螢幕、主機、鍵盤，就是「硬體」(身體)。你看不到但能操作的，像
+                    App、遊戲、作業系統，就是「軟體」(靈魂)。</p>
+                <p><strong>例如：</strong> 你的手機是硬體，裡面的 IG、抖音就是軟體。身體(硬體)需要靈魂(軟體)才能運作！</p>
+            </div>
+            <div>
+                <img src="https://images.pexels.com/photos/1779487/pexels-photo-1779487.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+                     alt="硬體與軟體" class="rounded-xl shadow-lg"
+                     onerror="this.onerror=null;this.src='https://placehold.co/600x400/e2e8f0/64748b?text=硬體與軟體';">
+            </div>
+        </div>
+
+        <details>
+            <summary>電腦知識王挑戰</summary>
+            <div class="mt-4 prose max-w-none">
+                <p><strong>問答題：</strong></p>
+                <ol>
+                    <li>你用來聽音樂的耳機，是屬於「輸入」還是「輸出」設備？</li>
+                    <li>電腦的「大腦」是什麼？ (提示：三個英文字母)</li>
+                    <li>你的手機本身是「硬體」還是「軟體」？</li>
+                </ol>
+                <hr>
+                <p><strong>解答：</strong> 1. 輸出, 2. CPU, 3. 硬體。 你都答對了嗎？</p>
+            </div>
+        </details>
+    </section>
+
+    <!-- 終極試煉 -->
+    <section id="final-challenge" class="section-card bg-gradient-to-br from-green-500 to-blue-600 text-white">
+        <div class="flex items-center mb-6">
+            <div class="level-bubble mr-6 !bg-white !text-blue-600">終極<br>試煉</div>
+            <div>
+                <h2 class="text-4xl font-bold">雲端特務終極試煉</h2>
+                <p class="text-xl text-blue-200 mt-1">整合所有技能，完成你的團隊任務！</p>
+            </div>
+        </div>
+        <div class="prose prose-invert max-w-none text-lg text-blue-100">
+            <p>頂尖特務們，展現實力的時刻到了！請以小組為單位，結合今天所學，完成最終挑戰！</p>
+            <ol>
+                <li>在 Google 雲端硬碟中，由組長建立一份新的 Google 文件，標題為「電腦課第二堂課心得 - 第X組」。</li>
+                <li>組長將文件共用給所有組員及老師，權限設定為「編輯者」。</li>
+                <li>每位組員在文件中，至少寫下 50 字關於今天課程的心得 (Gmail, Google文件, 電腦運作原理擇一或綜合)。</li>
+                <li>在你的心得旁邊，插入一張從網路找到的，你覺得最能代表今天上課心情的圖片或 GIF 動圖。</li>
+                <li>完成後，由組長將這份文件的「連結」，透過 Gmail 寄給老師，主旨為「第X組終極試煉報告繳交」。</li>
+            </ol>
+            <p class="mt-6 font-bold text-2xl text-white">完成任務後，你們就是名符其實的 Google 雲端特務！</p>
+        </div>
+    </section>
+
+</main>
+
+<!-- Footer -->
+<footer class="bg-gray-800 text-white mt-8">
+    <div class="container mx-auto px-6 py-8 text-center">
+        <p>🎉 恭喜特務們完成所有訓練！ 🎉</p>
+        <p class="mt-2 text-gray-400">善用你的新技能，讓數位學習更有效率！</p>
+    </div>
+</footer>
+
+</body>
+</html>
+
