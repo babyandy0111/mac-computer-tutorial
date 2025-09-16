@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>網際網路探險家：揭開數據傳輸的秘密</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+        }
+        .section-card {
+            background-color: white;
+            border-radius: 1.5rem;
+            padding: 2.5rem;
+            margin-bottom: 2.5rem;
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            border: 1px solid #e5e7eb;
+        }
+        .section-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+        }
+        .gradient-text {
+            background-image: linear-gradient(to right, #f97316, #ec4899, #8b5cf6);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .level-bubble {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 4rem;
+            height: 4rem;
+            border-radius: 9999px;
+            background-image: linear-gradient(to right, #ec4899, #f97316);
+            color: white;
+            font-weight: 700;
+            font-size: 1.25rem;
+            flex-shrink: 0;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        }
+        details {
+            border-radius: 0.75rem;
+            border: 2px dashed #d1d5db;
+            padding: 1rem;
+            margin-top: 1.5rem;
+        }
+        summary {
+            font-weight: 700;
+            color: #c2410c;
+            cursor: pointer;
+            list-style-type: '🧭 ';
+        }
+        .topic-card {
+            border-left: 4px solid #f97316;
+            padding-left: 1.5rem;
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+<!-- Header -->
+<header class="bg-white shadow-md sticky top-0 z-10">
+    <div class="container mx-auto px-6 py-4">
+        <h1 class="text-3xl font-bold gradient-text">網際網路探險家</h1>
+        <p class="text-gray-600 mt-1">揭開數據傳輸的秘密，看懂數位世界的地圖！</p>
+    </div>
+</header>
+
+<main class="container mx-auto px-6 py-12">
+
+    <!-- 關卡一：網際網路是什麼？ -->
+    <section id="level1" class="section-card">
+        <div class="flex items-center mb-6">
+            <div class="level-bubble mr-6">關卡一</div>
+            <div>
+                <h2 class="text-4xl font-bold text-gray-900">網際網路是什麼？</h2>
+                <p class="text-xl text-gray-600 mt-1">一張連接全世界電腦的巨大蜘蛛網</p>
+            </div>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-8 items-center">
+            <div class="prose max-w-none text-lg">
+                <p>嘿，探險家！我們每天都在「上網」，但「網際網路」(Internet) 到底是什麼？</p>
+                <p>想像一下，有一張巨大無比、看不見的蜘蛛網，把全世界的電腦、手機、伺服器（就是存放網站資料的超級電腦）全部都連接在一起。這張大網，就是網際網路！</p>
+                <p>透過這張網，我們可以：</p>
+                <ul class="list-disc pl-5 space-y-2">
+                    <li><strong>傳送訊息：</strong>就像蜘蛛在網上傳遞震動，我們用 LINE、Email 傳訊息。</li>
+                    <li><strong>獲取資訊：</strong>瀏覽 Google、YouTube 上的網站，就像從網上取得掛著的「知識果實」。</li>
+                    <li><strong>分享生活：</strong>在 IG、FB 上發文，就是把你自己的故事掛到網上和大家分享。</li>
+                </ul>
+                <p>這張大網，讓資訊可以自由地在全球流動，也徹底改變了我們的生活！</p>
+            </div>
+            <div>
+                <img src="https://images.pexels.com/photos/39284/macbook-apple-imac-computer-39284.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="[全球網路連接示意圖]" class="rounded-xl shadow-lg w-full h-auto object-cover" onerror="this.onerror=null;this.src='https://placehold.co/600x400/e2e8f0/64748b?text=[全球網路連接]';">
+            </div>
+        </div>
+    </section>
+
+    <!-- 關卡二：深入網路的核心機制 -->
+    <section id="level2" class="section-card">
+        <div class="flex items-center mb-6">
+            <div class="level-bubble mr-6">關卡二</div>
+            <div>
+                <h2 class="text-4xl font-bold text-gray-900">深入網路的核心機制</h2>
+                <p class="text-xl text-gray-600 mt-1">探索數據傳輸的秘密通道</p>
+            </div>
+        </div>
+        <div class="prose max-w-none text-lg">
+            <p>訊息是怎麼在這張大網上跑的？為什麼我在台灣能看到美國的網站？這背後有許多神奇的規則和技術，就像交通系統一樣，我們來一一探索！</p>
+        </div>
+
+        <!-- 主題 2.1 -->
+        <div class="topic-card grid md:grid-cols-2 gap-8 items-center">
+            <div class="prose max-w-none text-lg">
+                <h3 class="text-2xl font-bold gradient-text">訊號傳遞的媒介</h3>
+                <p>數據的傳輸需要媒介，就像聲音需要空氣一樣。常見的有：</p>
+                <ul class="list-disc pl-5 space-y-2">
+                    <li><strong>雙絞線/電纜：</strong>你家裡連到牆壁上的網路線，透過電流傳遞訊號。</li>
+                    <li><strong>光纖：</strong>海底電纜就是用這個！用「光」來傳輸，速度超級快！</li>
+                    <li><strong>Wi-Fi/手機網路：</strong>看不到的無線電波，讓我們可以隨時隨地上網。</li>
+                </ul>
+            </div>
+            <div>
+                <img src="https://images.pexels.com/photos/442150/pexels-photo-442150.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="[光纖電纜示意圖]" class="rounded-xl shadow-lg" onerror="this.onerror=null;this.src='https://placehold.co/600x400/e2e8f0/64748b?text=[光纖電纜]';">
+            </div>
+        </div>
+
+        <!-- 主題 2.2 -->
+        <div class="topic-card grid md:grid-cols-2 gap-8 items-center">
+            <div>
+                <img src="https://images.pexels.com/photos/595804/pexels-photo-595804.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="[地址與門牌號碼]" class="rounded-xl shadow-lg" onerror="this.onerror=null;this.src='https://placehold.co/600x400/e2e8f0/64748b?text=[IP位址]';">
+            </div>
+            <div class="prose max-w-none text-lg">
+                <h3 class="text-2xl font-bold gradient-text">IP 位址和 DNS</h3>
+                <p><strong>IP 位址</strong> 就像是每台電腦在網路上的「地址門牌」，例如 <code class="bg-gray-200 px-1 rounded">114.32.227.58</code>。但數字太難記了！</p>
+                <p>所以我們有了 <strong>DNS (網域名稱系統)</strong>，它就像是網路世界的「電話簿」，可以把好記的網址 (例如 <code class="bg-gray-200 px-1 rounded">www.google.com</code>) 翻譯成電腦看得懂的 IP 位址。</p>
+            </div>
+        </div>
+
+        <!-- 主題 2.3 -->
+        <div class="topic-card grid md:grid-cols-2 gap-8 items-center">
+            <div class="prose max-w-none text-lg">
+                <h3 class="text-2xl font-bold gradient-text">封包、路由、可靠度</h3>
+                <p>當你傳送一張圖片時，網路會把它切成很多個小「<strong>封包</strong>」，每個封包都有目的地 IP 位址。</p>
+                <p>「<strong>路由器 (Router)</strong>」就像是網路上的交通警察，會指揮這些封包走最快的路徑（<strong>路由</strong>）到達目的地。</p>
+                <p>如果中間有封包遺失了，TCP/IP 這個通訊協定會確保對方沒收到，並要求重傳，這就是「<strong>可靠度</strong>」。</p>
+            </div>
+            <div>
+                <img src="https://images.pexels.com/photos/1148820/pexels-photo-1148820.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="[路由器與數據流]" class="rounded-xl shadow-lg" onerror="this.onerror=null;this.src='https://placehold.co/600x400/e2e8f0/64748b?text=[路由器]';">
+            </div>
+        </div>
+
+        <!-- 主題 2.4 -->
+        <div class="topic-card grid md:grid-cols-2 gap-8 items-center">
+            <div>
+                <img src="./images/3.jpg" alt="[瀏覽器顯示網頁]" class="rounded-xl shadow-lg" onerror="this.onerror=null;this.src='https://placehold.co/600x400/e2e8f0/64748b?text=[HTTP與HTML]';">
+            </div>
+            <div class="prose max-w-none text-lg">
+                <h3 class="text-2xl font-bold gradient-text">HTTP 和 HTML</h3>
+                <p><strong>HTTP (超文本傳輸協定)</strong> 是瀏覽器和網站伺服器溝通的「語言」。當你在瀏覽器輸入網址，就是用 HTTP 語言說：「嗨！請把這個網頁的資料給我！」</p>
+                <p>而伺服器回傳給你的，就是用 <strong>HTML (超文本標記語言)</strong> 寫成的網頁原始碼，瀏覽器再把它翻譯成我們看到的漂亮網頁。</p>
+            </div>
+        </div>
+
+        <details>
+            <summary>網路探險家挑戰</summary>
+            <div class="mt-4 prose max-w-none">
+                <p><strong>問答題：</strong></p>
+                <ol>
+                    <li>把好記的網址 (www.google.com) 翻譯成數字 IP 位址的系統，叫做什麼？ (提示：三個英文字母)</li>
+                    <li>負責指揮數據封包走最佳路徑的網路設備是什麼？</li>
+                    <li>我們現在正在看的這個網頁，主要是由哪一種語言寫成的？</li>
+                </ol>
+                <hr>
+                <p><strong>解答：</strong> 1. DNS, 2. 路由器 (Router), 3. HTML。 你都答對了嗎？</p>
+            </div>
+        </details>
+    </section>
+
+    <!-- 關卡三：網路安全與數位公民 -->
+    <section id="level3" class="section-card">
+        <div class="flex items-center mb-6">
+            <div class="level-bubble mr-6">關卡三</div>
+            <div>
+                <h2 class="text-4xl font-bold text-gray-900">網路安全與數位公民</h2>
+                <p class="text-xl text-gray-600 mt-1">保護自己，尊重他人</p>
+            </div>
+        </div>
+        <div class="prose max-w-none text-lg">
+            <p>網路世界充滿樂趣，但也潛藏著一些危險。身為一個負責任的探險家，我們必須學會如何保護自己和尊重他人。</p>
+        </div>
+
+        <!-- 主題 3.1 -->
+        <div class="topic-card grid md:grid-cols-2 gap-8 items-center">
+            <div class="prose max-w-none text-lg">
+                <h3 class="text-2xl font-bold gradient-text">加密與公開金鑰</h3>
+                <p>當你輸入密碼或刷卡時，資料是怎麼被保護的？靠的就是「<strong>加密</strong>」！</p>
+                <p>想像你有一個只能用你的「私鑰」才能打開的專屬鎖頭（<strong>公開金鑰</strong>），你把這個鎖頭（公開金鑰）複製給很多人。別人要寄機密信給你時，就用你的鎖頭鎖上，這樣全世界只有擁有「私鑰」的你才能打開這封信，確保了資料安全。</p>
+            </div>
+            <div>
+                <img src="https://images.pexels.com/photos/60504/security-protection-anti-virus-software-60504.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="[網路安全鎖頭示意圖]" class="rounded-xl shadow-lg" onerror="this.onerror=null;this.src='https://placehold.co/600x400/e2e8f0/64748b?text=[加密與安全]';">
+            </div>
+        </div>
+
+        <!-- 主題 3.2 -->
+        <div class="topic-card grid md:grid-cols-2 gap-8 items-center">
+            <div>
+                <img src="https://images.pexels.com/photos/5380664/pexels-photo-5380664.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="[鍵盤與警告標誌]" class="rounded-xl shadow-lg" onerror="this.onerror=null;this.src='https://placehold.co/600x400/e2e8f0/64748b?text=[網路犯罪]';">
+            </div>
+            <div class="prose max-w-none text-lg">
+                <h3 class="text-2xl font-bold gradient-text">網路安全與犯罪</h3>
+                <p>網路犯罪有很多種，例如：</p>
+                <ul class="list-disc pl-5 space-y-2">
+                    <li><strong>釣魚網站：</strong>製作假的網站騙取你的帳號密碼。</li>
+                    <li><strong>病毒/惡意軟體：</strong>破壞你的電腦或竊取資料。</li>
+                    <li><strong>網路霸凌：</strong>在網路上用言語攻擊或散播不實言論。</li>
+                </ul>
+                <p>記住，在網路上，我們也要遵守法律和道德，不做傷害別人的事。</p>
+            </div>
+        </div>
+
+        <!-- 主題 3.3 -->
+        <div class="topic-card grid md:grid-cols-2 gap-8 items-center">
+            <div class="prose max-w-none text-lg">
+                <h3 class="text-2xl font-bold gradient-text">關鍵字搜尋的原理</h3>
+                <p>為什麼 Google 搜尋這麼快？因為它有許多「網路爬蟲」機器人，不斷地在網路上爬取、索引和儲存全世界的網頁資料。</p>
+                <p>當你輸入關鍵字，Google 不是當下才去找，而是從它龐大的「索引資料庫」中，瞬間找出最相關的結果給你。這就是為什麼搜尋幾乎是即時的！</p>
+            </div>
+            <div>
+                <img src="https://images.pexels.com/photos/159711/books-bookstore-book-reading-159711.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="[圖書館書架與索引]" class="rounded-xl shadow-lg" onerror="this.onerror=null;this.src='https://placehold.co/600x400/e2e8f0/64748b?text=[搜尋引擎原理]';">
+            </div>
+        </div>
+    </section>
+
+    <!-- 終極試煉 -->
+    <section id="final-challenge" class="section-card bg-gradient-to-br from-orange-500 to-rose-500 text-white">
+        <div class="flex items-center mb-6">
+            <div class="level-bubble mr-6 !bg-white !text-orange-600">終極<br>試煉</div>
+            <div>
+                <h2 class="text-4xl font-bold">探險家成果發表</h2>
+                <p class="text-xl text-rose-200 mt-1">分享你的網路世界地圖！</p>
+            </div>
+        </div>
+        <div class="prose prose-invert max-w-none text-lg text-rose-100">
+            <p>偉大的探險家們，是時候分享你們的發現了！請以個人為單位，完成最終的探險報告！</p>
+            <ol>
+                <li>指派一位，建立一份 Google 文件，標題為「我們的網路探險地圖」。</li>
+                <li>建立者將文件共用給所有組員及老師 (權限設為編輯者)。</li>
+                <li>每位組員選擇今天學到的一個最酷的「網路關鍵字」(例如：IP位址, DNS, 封包, HTTP, 加密)，用你自己的話在文件上解釋它的意思，並附上一張你覺得最貼切的圖片。</li>
+                <li>完成後，指派一位人選，將文件連結，透過 Gmail 寄給老師，主旨為「網路探險報告繳交」。</li>
+            </ol>
+            <p class="mt-6 font-bold text-2xl text-white">恭喜你們，完成了這次的網際網路深度探索之旅！</p>
+        </div>
+    </section>
+
+</main>
+
+<!-- Footer -->
+<footer class="bg-gray-800 text-white mt-8">
+    <div class="container mx-auto px-6 py-8 text-center">
+        <p>🎉 恭喜探險家們完成所有挑戰！ 🎉</p>
+        <p class="mt-2 text-gray-400">繼續保持好奇心，探索廣大的數位世界！</p>
+    </div>
+</footer>
+
+</body>
+</html>
