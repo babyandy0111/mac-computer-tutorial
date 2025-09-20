@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>互動式 JavaScript 學習儀表板</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', 'Noto Sans TC', sans-serif;
+        }
+        .active-day {
+            background-color: #F59E0B !important;
+            color: #FFFFFF !important;
+            font-weight: 600;
+        }
+        .code-block {
+            background-color: #1f2937;
+            color: #d1d5db;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            overflow-x: auto;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.875rem;
+            white-space: pre-wrap;
+        }
+        .preview-box {
+            border: 2px solid #e5e7eb;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            background-color: #f9fafb;
+            min-height: 150px;
+        }
+        .preview-box button {
+            background-color: #F59E0B;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+        }
+        .text-gray-700 code, .list-inside code {
+            background-color: #fef3c7;
+            color: #854d0e;
+            padding: 0.125rem 0.375rem;
+            border-radius: 0.25rem;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body class="bg-yellow-50 text-gray-800">
+
+<div class="container mx-auto p-4 md:p-8">
+    <header class="text-center mb-8">
+        <h1 class="text-3xl md:text-4xl font-bold text-gray-900">互動式 JavaScript 學習計畫</h1>
+        <p class="mt-2 text-lg text-gray-600">為你的履歷網頁添加神奇的互動效果。</p>
+    </header>
+
+    <div class="flex flex-col md:flex-row gap-8">
+        <aside class="md:w-1/4">
+            <h2 class="text-xl font-semibold mb-4 text-gray-700">學習章節</h2>
+            <div id="day-navigation" class="flex flex-row md:flex-col flex-wrap gap-2"></div>
+        </aside>
+
+        <main id="content-display" class="md:w-3/4 bg-white p-6 rounded-lg shadow-md min-h-[500px]">
+            <div id="day-content">
+                <div class="flex flex-col items-center justify-center h-full text-center">
+                    <svg class="w-16 h-16 text-yellow-400 mb-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                    </svg>
+                    <h3 class="text-2xl font-semibold text-gray-700">歡迎來到 JavaScript 的魔法學院！</h3>
+                    <p class="text-gray-500 mt-2">請從左側選擇一篇咒語開始學習。</p>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+
+<script>
+    const learningData = [
+        {
+            title: "JS 基礎與第一個互動",
+            goals: [
+                "了解如何在 HTML 中加入 JS (`<script>` 標籤)。",
+                "學習 `console.log()` 來進行簡單的偵錯。",
+                "學習 `alert()` 來顯示彈出訊息。"
+            ],
+            task: "建立一個 `script.js` 檔案，並在履歷 `index.html` 中引入。撰寫一個簡單的 `alert`，當網頁載入時，跳出「歡迎來到我的履歷！」的訊息。",
+            htmlSnippet: `<!-- index.html -->
+<body>
+    <!-- ... all your html content ... -->
+    <script src="script.js"><\/script>
+</body>`,
+            jsSnippet: `// script.js
+console.log("腳本已載入！");
+alert("歡迎來到我的履歷！");`
+        },
+        {
+            title: "DOM 操作：選取元素",
+            goals: [
+                "理解什麼是 DOM (文件物件模型)。",
+                "學習 `document.getElementById()` 和 `document.querySelector()` 來抓取網頁上的元素。"
+            ],
+            task: "在 JS 中，使用 `getElementById` 選取到你的名字 (`<h1>`)，並將它 `console.log` 出來，確認你成功抓到了這個元素。",
+            htmlSnippet: `<h1 id="my-name">王小明</h1>`,
+            jsSnippet: `const myNameElement = document.getElementById("my-name");
+console.log(myNameElement);`
+        },
+        {
+            title: "事件監聽 (Event Listener)",
+            goals: [
+                "學習 `addEventListener` 來監聽使用者的行為 (如 `click`)。",
+                "學習如何定義一個函式 (function) 來處理事件。"
+            ],
+            task: "在履歷中新增一個按鈕。當使用者點擊這個按鈕時，觸發一個 `alert` 說「謝謝你的關注！」。",
+            htmlSnippet: `<button id="thank-you-btn">點我！</button>`,
+            jsSnippet: `const thankYouBtn = document.getElementById("thank-you-btn");
+
+function showThankYouMessage() {
+    alert("謝謝你的關注！");
+}
+
+thankYouBtn.addEventListener("click", showThankYouMessage);`
+        },
+        {
+            title: "改變網頁內容與樣式",
+            goals: [
+                "學習用 `.innerHTML` 或 `.textContent` 來改變元素的文字內容。",
+                "學習用 `.style` 屬性來動態修改 CSS 樣式。"
+            ],
+            task: "新增一個「切換夜間模式」的按鈕。點擊後，將 `<body>` 的背景顏色變為黑色，文字顏色變為白色。",
+            htmlSnippet: `<button id="dark-mode-toggle">切換夜間模式</button>`,
+            jsSnippet: `const darkModeBtn = document.getElementById("dark-mode-toggle");
+const body = document.querySelector("body");
+
+function toggleDarkMode() {
+    body.style.backgroundColor = "black";
+    body.style.color = "white";
+}
+
+darkModeBtn.addEventListener("click", toggleDarkMode);`
+        },
+        {
+            title: "綜合應用",
+            goals: ["綜合運用所學，為履歷表單增加互動驗證功能。"],
+            task: "當使用者點擊履歷表單的「送出」按鈕時，檢查「你的名字」欄位是否為空。如果為空，就跳出提示訊息「請填寫你的名字！」，並停止表單送出。",
+            htmlSnippet: `<form id="contact-form">
+    <label for="name">你的名字：</label>
+    <input type="text" id="name" name="name">
+    <button type="submit">送出</button>
+</form>`,
+            jsSnippet: `const contactForm = document.getElementById("contact-form");
+
+contactForm.addEventListener("submit", function(event) {
+    const nameInput = document.getElementById("name");
+    if (nameInput.value === "") {
+        alert("請填寫你的名字！");
+        event.preventDefault(); // 阻止表單送出
+    }
+});`
+        }
+    ];
+
+    const dayNavigation = document.getElementById('day-navigation');
+    const dayContent = document.getElementById('day-content');
+
+    //  robust HTML escaping function
+    function escapeHTML(str) {
+        return str.replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#039;');
+    }
+
+    function displayContent(index) {
+        const data = learningData[index];
+
+        // This function now correctly escapes content inside backticks before wrapping
+        const formatTextWithCode = (str) => {
+            return escapeHTML(str).replace(/`([^`]+)`/g, (match, codeContent) => {
+                return `<code>${codeContent}</code>`;
+            });
+        };
+
+        const goalsHtml = data.goals.map(goal => `<li class="mb-1">${formatTextWithCode(goal)}</li>`).join('');
+        const taskHtml = formatTextWithCode(data.task);
+
+        dayContent.innerHTML = `
+                <h3 class="text-2xl font-bold text-gray-800 mb-1">${escapeHTML(data.title)}</h3>
+                <hr class="my-4">
+                <div class="mb-6">
+                    <h4 class="text-lg font-semibold text-yellow-600 mb-2">學習目標</h4>
+                    <ul class="list-disc list-inside text-gray-700">${goalsHtml}</ul>
+                </div>
+                <div class="mb-6">
+                    <h4 class="text-lg font-semibold text-yellow-600 mb-2">今日任務</h4>
+                    <p class="text-gray-700">${taskHtml}</p>
+                </div>
+                <div class="mb-6">
+                    <h4 class="text-lg font-semibold text-yellow-600 mb-2">HTML 結構 (參考)</h4>
+                    <pre class="code-block"><code>${escapeHTML(data.htmlSnippet)}</code></pre>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold text-yellow-600 mb-2">JavaScript 範例</h4>
+                    <pre class="code-block"><code>${escapeHTML(data.jsSnippet)}</code></pre>
+                </div>
+            `;
+        updateActiveButton(index);
+    }
+
+    function updateActiveButton(activeIndex) {
+        const buttons = dayNavigation.querySelectorAll('button');
+        buttons.forEach((button, index) => {
+            button.classList.toggle('active-day', index === activeIndex);
+        });
+    }
+
+    learningData.forEach((item, index) => {
+        const dayButton = document.createElement('button');
+        dayButton.className = 'w-full text-left p-3 rounded-md bg-white hover:bg-yellow-100 transition-colors shadow-sm border border-gray-200';
+        dayButton.textContent = item.title;
+        dayButton.addEventListener('click', () => displayContent(index));
+        dayNavigation.appendChild(dayButton);
+    });
+
+    if (learningData.length > 0) {
+        displayContent(0);
+    }
+</script>
+</body>
+</html>
+
