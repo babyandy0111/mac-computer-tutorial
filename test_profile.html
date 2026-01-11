@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <!-- RWD (響應式網頁設計) 的 viewport 設定 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的酷炫個人檔案</title>
+
+    <style>
+        /* --- 1. 全域設定 & 基本排版 --- */
+        body {
+            font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif;
+            background-color: #f3f4f6; /* 淺灰色 (Tailwind bg-gray-100) */
+            color: #1f2937; /* 深灰色 (Tailwind text-gray-800) */
+            margin: 0;
+            padding: 1.5rem; /* 手機上的 padding (Tailwind p-6) */
+        }
+
+        /* 內容容器 */
+        .container {
+            max-width: 64rem; /* (Tailwind max-w-5xl) */
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* --- 2. 主要卡片 & 封面 --- */
+        .profile-card {
+            background-color: #ffffff; /* 白色背景 */
+            border-radius: 1.5rem; /* 圓角 (Tailwind rounded-2xl) */
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); /* 陰影 (Tailwind shadow-2xl) */
+            overflow: hidden; /* 隱藏凸出去的部分 */
+        }
+
+        .profile-banner {
+            height: 12rem; /* h-48 */
+            /* 漸層色 (Tailwind bg-gradient-to-r from-cyan-500 to-blue-500) */
+            background-image: linear-gradient(to right, #06b6d4, #3b82f6);
+            position: relative; /* 為了讓頭像可以定位 */
+        }
+
+        /* --- 3. 個人資訊 (頭像、名字) --- */
+        .profile-info {
+            display: flex;
+            flex-direction: column; /* 手機(預設) 垂直堆疊 */
+            align-items: center; /* 置中 */
+            padding: 1.5rem; /* p-6 */
+
+            /* - 關鍵！
+              - 負上邊距，讓它蓋住 Banner
+            */
+            margin-top: -5rem; /* (Tailwind -mt-20) */
+            position: relative; /* 確保它在 Banner 上面 */
+            z-index: 10;
+        }
+
+        .profile-avatar {
+            width: 8rem; /* w-32 */
+            height: 8rem; /* h-32 */
+            border-radius: 9999px; /* 圓形 (Tailwind rounded-full) */
+            border: 4px solid #ffffff; /* (Tailwind border-4 border-white) */
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); /* (Tailwind shadow-lg) */
+            object-fit: cover; /* 確保圖片不變形 */
+        }
+
+        .profile-details {
+            margin-top: 1rem; /* mt-4 */
+            text-align: center; /* 手機(預設) 文字置中 */
+        }
+
+        .profile-details h1 {
+            font-size: 1.875rem; /* text-3xl */
+            font-weight: 700; /* font-bold */
+            color: #111827; /* text-gray-900 */
+            transition: color 0.3s; /* JS 點擊變色時的過場 */
+            margin: 0;
+        }
+
+        .profile-details p {
+            font-size: 1.125rem; /* text-lg */
+            color: #2563eb; /* text-blue-600 */
+            font-weight: 500; /* font-medium */
+            margin: 0.25rem 0 0 0;
+        }
+
+        /* 區塊標題 */
+        .main-content {
+            padding: 0 1.5rem 1.5rem 1.5rem; /* p-6, 但上方 padding 已在 profile-info 處理 */
+        }
+
+        /* 區塊標題 */
+        .content-section {
+            margin-top: 2rem; /* mt-8 */
+        }
+
+        .content-section h2 {
+            font-size: 1.5rem; /* text-2xl */
+            font-weight: 600; /* font-semibold */
+            border-bottom: 2px solid #bfdbfe; /* border-b-2 border-blue-200 */
+            padding-bottom: 0.5rem; /* pb-2 */
+            margin-bottom: 1rem; /* for content mt-4 */
+        }
+
+        .about-me-text {
+            line-height: 1.625; /* leading-relaxed */
+            color: #374151; /* text-gray-700 */
+        }
+
+        /* 專案網格 */
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);; /* 預設 1 欄 (grid-cols-1) */
+            gap: 1.5rem; /* gap-6 */
+        }
+
+        .project-card {
+            background-color: #f9fafb; /* bg-gray-50 */
+            border-radius: 0.75rem; /* rounded-xl */
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); /* shadow-md */
+            overflow: hidden; /* 隱藏圖片 */
+        }
+
+        .project-card img {
+            width: 100%;
+            height: 10rem; /* h-40 */
+            object-fit: cover;
+        }
+
+        .project-card-content {
+            padding: 1.25rem; /* p-5 */
+        }
+
+        .project-card-content h3 {
+            font-size: 1.25rem; /* text-xl */
+            font-weight: 700; /* font-bold */
+            color: #111827; /* text-gray-900 */
+            margin: 0;
+        }
+
+        .project-card-content p {
+            color: #4b5563; /* text-gray-600 */
+            margin: 0.5rem 0 0 0; /* mt-2 */
+        }
+
+        /* --- 6. 頁尾 --- */
+        footer {
+            text-align: center;
+            color: #6b7280; /* text-gray-500 */
+            margin-top: 2rem; /* mt-8 */
+            font-size: 0.875rem; /* text-sm */
+        }
+
+        /* --- 7. RWD (響應式網頁設計) ---
+          (Tailwind md: breakpoint 是 768px)
+        */
+        @media (min-width: 768px) {
+            body {
+                padding: 2.5rem; /* md:p-10 */
+            }
+
+            .profile-banner {
+                height: 16rem; /* md:h-64 */
+            }
+
+            .profile-info {
+                flex-direction: row; /* md:flex-row (改為水平) */
+                padding: 2.5rem; /* md:p-10 */
+            }
+
+            .profile-avatar {
+                width: 10rem; /* md:w-40 */
+                height: 10rem; /* md:h-40 */
+            }
+
+            .profile-details {
+                margin-top: 0; /* md:mt-0 */
+                margin-left: 2rem; /* md:ml-8 */
+                text-align: left; /* md:text-left */
+            }
+
+            .profile-details h1 {
+                font-size: 2.25rem; /* md:text-4xl */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 主要的個人檔案卡片 -->
+        <main class="profile-card">
+
+            <!-- ====== 1. 封面照片 (Banner) ====== -->
+            <header class="profile-banner">
+                <!-- 我們可以用一個空的 div 來做 banner -->
+            </header>
+
+            <!-- ====== 2. 個人資訊 (頭像 + 名字) ====== -->
+            <section class="profile-info">
+                <!-- 大頭貼 -->
+                <img
+                        src="https://placehold.co/200x200/E0E0E0/333?text=My\nFace"
+                        alt="我的大頭貼"
+                        class="profile-avatar"
+                >
+
+                <!-- 名字 & 簡介 -->
+                <div class="profile-details">
+                    <h1 id="profileName">
+                        王俞皓 (Liam Wang)
+                    </h1>
+                    <p>
+                        aspiring developer & 國中生
+                    </p>
+                </div>
+            </section>
+
+
+            <div class="main-content">
+                <!-- --- 關於我 --- -->
+                <section class="content-section">
+                    <h2>關於我 (About Me)</h2>
+                    <p class="about-me-text">
+                        哈囉！我是一個對寫程式充滿好奇的國中生。我喜歡玩電子遊戲，也很好奇這些遊戲是怎麼做出來的。我正在學習
+                        HTML, CSS 和 JavaScript，希望有一天能做出自己的網站或小遊戲。這個頁面就是我的第一個作品！
+                    </p>
+                </section>
+
+                <!-- --- 專案列表 (Projects)--- -->
+                <section class="content-section">
+                    <h2>我的專案 (Projects)</h2>
+                    <!-- RWD 網格 (Grid) -->
+                    <div class="project-grid">
+
+                        <!-- 專案卡片 1 -->
+                        <div class="project-card">
+                            <img src="https://placehold.co/400x200/A9D5E5/333?text=Project+1" alt="專案1圖片">
+                            <div class="project-card-content">
+                                <h3>我的第一個網站</h3>
+                                <p>就是你現在看的這個頁面！我用了 HTML, CSS。</p>
+                            </div>
+                        </div>
+
+                        <!-- 專案卡片 2 -->
+                        <div class="project-card">
+                            <img src="https://placehold.co/400x200/F4B8A9/333?text=Project+2" alt="專案2圖片">
+                            <div class="project-card-content">
+                                <h3>計算機</h3>
+                                <p>（還在計畫中）一個展示我計算機作品的<a href="calculator.html">連結</a>。</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </section>
+            </div>
+        </main>
+        <!-- 頁尾 -->
+        <footer>
+            © 2025 王俞皓的個人檔案. All rights reserved.
+        </footer>
+    </div>
+    <div style="margin-top: 20px; text-align: center; font-size: 0.875rem; color: #6b7280;">
+        提示：使用 `fn + F12` 或 `Command + Option + U` 可觀看原始碼
+    </div>
+</body>
+</html>

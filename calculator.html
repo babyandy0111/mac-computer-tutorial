@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>教學用簡約計算機 - 全註解教學版</title>
+        <style>
+            /* 1. 畫面排版：基礎設定 */
+            body {
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* 設定字體家族 */
+                background-color: #f0f2f5; /* 整體網頁背景色 */
+                display: flex; /* 使用彈性佈局 */
+                flex-direction: column; /* 讓內容垂直排列 */
+                align-items: center; /* 水平方向置中 */
+                justify-content: center; /* 垂直方向置中 */
+                height: 100vh; /* 設定 body 高度為視窗高度 */
+                margin: 0; /* 移除瀏覽器預設邊距 */
+            }
+
+            /* 計算機主體外殼 */
+            .calculator {
+                background-color: #ffffff; /* 計算機背景色為白色 */
+                padding: 25px; /* 設定內距空間 */
+                border-radius: 24px; /* 設定圓角邊框 */
+                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08); /* 增加陰影效果 */
+                width: 320px; /* 固定計算機寬度 */
+            }
+
+            /* 顯示螢幕 */
+            #display {
+                width: 100%; /* 寬度佔滿父容器 */
+                height: 80px; /* 設定螢幕高度 */
+                background-color: #f8f9fa; /* 螢幕背景淺灰色 */
+                border: 1px solid #eee; /* 加上淺色邊框 */
+                border-radius: 12px; /* 螢幕圓角 */
+                margin-bottom: 20px; /* 與下方按鈕的間距 */
+                text-align: right; /* 文字靠右對齊 */
+                padding: 0 20px; /* 內部左右邊距 */
+                font-size: 32px; /* 字體大小 */
+                line-height: 80px; /* 垂直置中文字 */
+                box-sizing: border-box; /* 防止內距撐開寬度 */
+                color: #2d3436; /* 字體顏色 */
+                overflow: hidden; /* 隱藏溢出內容 */
+                font-weight: 500; /* 設定字體粗細 */
+            }
+
+            /* 按鈕網格排版 (Grid) */
+            .buttons {
+                display: grid; /* 開啟網格佈局 */
+                grid-template-columns: repeat(4, 1fr); /* 平均分成四欄 */
+                gap: 12px; /* 按鈕間的間隔 */
+            }
+
+            /* 基礎按鈕樣式 */
+            button {
+                height: 60px; /* 按鈕高度 */
+                border-radius: 12px; /* 按鈕圓角 */
+                border: none; /* 移除預設邊框 */
+                background-color: #f1f3f5; /* 按鈕背景色 */
+                font-size: 20px; /* 字體大小 */
+                font-weight: 500; /* 字體粗細 */
+                cursor: pointer; /* 滑鼠移入顯示手勢 */
+                transition: all 0.15s ease; /* 設定屬性變化的平滑動畫 */
+                color: #495057; /* 按鈕文字顏色 */
+            }
+
+            /* 按鈕懸停效果 */
+            button:hover {
+                background-color: #e9ecef; /* 懸停時顏色加深 */
+                transform: translateY(-2px); /* 懸停時輕微上移 */
+            }
+
+            /* 按鈕點擊效果 */
+            button:active {
+                transform: translateY(0); /* 按下時回到原位 */
+                background-color: #dee2e6; /* 點擊時顏色更深 */
+            }
+
+            /* 運算符號專屬樣式 */
+            .operator {
+                background-color: #ff9f0a; /* 橘色背景 */
+                color: white; /* 白色文字 */
+            }
+
+            .operator:hover {
+                background-color: #f29100; /* 懸停時橘色加深 */
+            }
+
+            /* AC 清除按鈕樣式 */
+            .ac-btn {
+                background-color: #ff3b30; /* 紅色背景 */
+                color: white; /* 白色文字 */
+                grid-column: span 1; /* 佔據 1 欄位 */
+            }
+
+            /* 等號按鈕樣式 */
+            .equals {
+                background-color: #007aff; /* 藍色背景 */
+                color: white; /* 白色文字 */
+                grid-column: span 3; /* 跨越 3 欄網格 */
+            }
+
+            /* 教學提示區塊樣式 */
+            #tip-box {
+                margin-top: 25px; /* 與上方間距 */
+                padding: 15px; /* 內部填充 */
+                background-color: #e7f3ff; /* 背景藍色 */
+                border-left: 5px solid #007aff; /* 左側裝飾邊框 */
+                border-radius: 8px; /* 提示框圓角 */
+                width: 320px; /* 寬度固定 */
+                font-size: 14px; /* 字體大小 */
+                color: #0056b3; /* 文字顏色 */
+                line-height: 1.6; /* 設定行高 */
+                box-sizing: border-box; /* 保持寬度一致 */
+            }
+        </style>
+    </head>
+    <body>
+
+        <div class="calculator">
+            <!-- 計算機螢幕顯示區域 -->
+            <div id="display">0</div>
+
+            <!-- 按鈕佈局區域 -->
+            <div class="buttons">
+                <button onclick="appendNumber('7')">7</button>
+                <button onclick="appendNumber('8')">8</button>
+                <button onclick="appendNumber('9')">9</button>
+                <button class="operator" onclick="chooseOperator('/')">÷</button>
+
+                <button onclick="appendNumber('4')">4</button>
+                <button onclick="appendNumber('5')">5</button>
+                <button onclick="appendNumber('6')">6</button>
+                <button class="operator" onclick="chooseOperator('*')">×</button>
+
+                <button onclick="appendNumber('1')">1</button>
+                <button onclick="appendNumber('2')">2</button>
+                <button onclick="appendNumber('3')">3</button>
+                <button class="operator" onclick="chooseOperator('-')">-</button>
+
+                <button onclick="appendNumber('0')">0</button>
+                <button onclick="appendNumber('.')">.</button>
+                <!-- 指數運算按鈕 (x的y次方) -->
+                <button class="operator" onclick="chooseOperator('**')">x<sup>y</sup></button>
+                <button class="operator" onclick="chooseOperator('+')">+</button>
+
+                <!-- 底部按鈕：AC 佔 1 欄，等號佔 3 欄 -->
+                <button class="ac-btn" onclick="clearDisplay()">AC</button>
+                <button class="equals" onclick="calculate()">=</button>
+            </div>
+        </div>
+
+        <script>
+            /* -----------------------------------------
+               JavaScript 使用：宣告變數 (Variable Declaration)
+            ----------------------------------------- */
+            let currentInput = '';    // 用於儲存當前正在輸入的字串數字
+            let previousInput = '';   // 用於儲存運算符號點擊前的數字 (暫存區)
+            let operator = null;      // 用於儲存點選的運算符號名稱
+
+            const displayElement = document.getElementById('display'); // 獲取顯示螢幕的 DOM 元素
+            const tipBox = document.getElementById('tip-box'); // 獲取教學提示框的 DOM 元素
+
+            /* -----------------------------------------
+               與畫面溝通：更新顯示 (DOM Interaction)
+            ----------------------------------------- */
+            function updateDisplay() {
+                // 如果當前有輸入內容，則優先顯示當前內容
+                if (currentInput !== '') {
+                    displayElement.innerText = currentInput;
+                }
+                // 如果當前內容是空的但有暫存數字，則維持顯示暫存值 (例如剛按下運算符號時)
+                else if (previousInput !== '') {
+                    displayElement.innerText = previousInput;
+                }
+                // 如果兩者都沒有，預設顯示 0
+                else {
+                    displayElement.innerText = '0';
+                }
+            }
+
+            // 當按下數字按鈕時呼叫此函式
+            function appendNumber(number) {
+                // 防止小數點重複出現
+                if (number === '.' && currentInput.includes('.')) return;
+                // 限制輸入長度，防止文字超出螢幕寬度
+                if (currentInput.length > 10) return;
+                // 將按下的數字字串連接到目前的輸入值後方
+                currentInput = currentInput.toString() + number.toString();
+                // 更新畫面
+                updateDisplay();
+            }
+
+            // 當按下 AC 按鈕時，歸零所有狀態
+            function clearDisplay() {
+                currentInput = '';    // 清空目前輸入
+                previousInput = '';   // 清空暫存輸入
+                operator = null;      // 清除符號紀錄
+                updateDisplay();      // 更新畫面回歸 0
+            }
+
+            /* -----------------------------------------
+               邏輯判斷：選擇運算子 (Operator Selection)
+            ----------------------------------------- */
+            function chooseOperator(op) {
+                // 如果完全沒有輸入任何數字，則不予理會符號點擊
+                if (currentInput === '' && previousInput === '') return;
+
+                // 如果已經有兩個數字準備就緒，按新符號時自動先執行上一次運算 (連續運算)
+                if (previousInput !== '' && currentInput !== '') {
+                    calculate();
+                }
+
+                // 記錄本次選擇的運算符號
+                operator = op;
+                // 如果目前輸入框有值，將其轉移到暫存區 previous，並準備接收下一個數字
+                if (currentInput !== '') {
+                    previousInput = currentInput;
+                    currentInput = '';
+                }
+                // 更新畫面 (此時螢幕會維持顯示暫存的數字)
+                updateDisplay();
+            }
+
+            /* -----------------------------------------
+               if/else 用法：執行核心運算 (Calculation)
+            ----------------------------------------- */
+            function calculate() {
+                let result; // 宣告結果變數
+                const prev = parseFloat(previousInput); // 將字串暫存轉為浮點數
+                const current = parseFloat(currentInput); // 將字串輸入轉為浮點數
+
+                // 如果其中一個值不是合法數字，則不執行運算
+                if (isNaN(prev) || isNaN(current)) return;
+
+                // 使用 if/else 結構來判斷要執行哪種四則運算
+                if (operator === '+') {
+                    result = prev + current; // 加法
+                } else if (operator === '-') {
+                    result = prev - current; // 減法
+                } else if (operator === '*') {
+                    result = prev * current; // 乘法
+                } else if (operator === '/') {
+                    // 判斷除數不能為零
+                    if (current === 0) {
+                        result = 'Error'; // 顯示錯誤訊息
+                    } else {
+                        result = prev / current; // 除法
+                    }
+                } else if (operator === '**') {
+                    // 指數運算教學：計算 prev 的 current 次方
+                    result = Math.pow(prev, current);
+                } else {
+                    return; // 如果沒有匹配的運算子，跳出函式
+                }
+
+                // 更新目前的輸入值為計算結果 (若是數字，則限制在小數點後四位)
+                currentInput = typeof result === 'number' ? Math.round(result * 10000) / 10000 : result;
+                operator = null;       // 運算結束，重設運算子
+                previousInput = '';    // 運算結束，重設暫存區
+                updateDisplay();       // 將結果呈現到螢幕上
+            }
+        </script>
+        <div style="margin-top: 20px; text-align: center; font-size: 14px; color: #666;">
+            提示：使用 `fn + F12` 或 `Command + Option + U` 可觀看原始碼
+        </div>
+    </body>
+</html>

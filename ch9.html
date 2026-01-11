@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第九章：綜合專案：設計你的個人檔案頁面</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+        }
+        .gradient-text {
+            background-image: linear-gradient(to right, #16a34a, #059669, #0d9488);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+<header class="bg-white shadow">
+    <div class="container mx-auto px-6 py-8">
+        <div class="flex justify-between items-center">
+            <div>
+                <h1 class="text-3xl md:text-4xl font-bold gradient-text">第九章：綜合專案：設計你的個人檔案頁面</h1>
+                <p class="text-gray-600 mt-2 text-lg">結合所學，設計並實作出具有現代感、響應式的個人網頁。</p>
+            </div>
+            <a href="index.html" class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-bold py-2 px-4 rounded-full transition-colors duration-200">返回目錄</a>
+        </div>
+    </div>
+</header>
+
+<main class="container mx-auto px-4 sm:px-6 py-12">
+    <div class="bg-white rounded-2xl shadow-xl p-8">
+        <h2 class="text-2xl font-bold text-gray-800 border-b-2 border-green-200 pb-2 mb-6">本章學習重點</h2>
+        <div class="space-y-4 text-gray-700">
+            <p>這是一個集大成的綜合專案！我們將運用至今為止學到的所有 HTML 和 CSS 技巧，來打造一個專業、美觀且能適應不同裝置（電腦、平板、手機）的個人檔案頁面。這個專案的重點在於「設計」與「版面配置」。</p>
+            <ul class="list-disc list-inside space-y-2 pl-4">
+                <li><strong>語意化 HTML 結構</strong>: 練習使用 `<header>`, `<main>`, `<section>`, `<footer>` 等語意化標籤來組織頁面結構，讓你的網頁不只好看，也對搜尋引擎更友善。</li>
+                <li><strong>CSS 變數與全域樣式</strong>: 在 `:root` 或 `body` 中設定基礎的顏色、字體，讓整體風格保持一致性，並易於修改。</li>
+                <li><strong>進階版面設計技巧</strong>:
+                    <ul class="list-disc list-inside space-y-2 pl-6 mt-2">
+                        <li><strong>負邊距 (Negative Margin)</strong>: 學習如何使用 `margin-top: -5rem;` 這樣的技巧，做出頭像疊在封面照片上的酷炫效果。</li>
+                        <li><strong>定位 (Positioning)</strong>: 透過 `position: relative;` 和 `position: absolute;` 的搭配，可以讓我們更自由地控制元素在頁面上的位置。</li>
+                        <li><strong>Flexbox 與 Grid 綜合應用</strong>: 我們會同時使用這兩種排版工具，Flexbox 用於單行或單列的對齊（如個人資訊區），Grid 則用於二維的網格佈局（如專案列表）。</li>
+                    </ul>
+                </li>
+                 <li><strong>響應式網頁設計 (RWD)</strong>:
+                    <ul class="list-disc list-inside space-y-2 pl-6 mt-2">
+                       <li>這是本章最重要的核心！我們將會使用 `@media (min-width: 768px)` 媒體查詢 (Media Query) 來設定「斷點」(breakpoint)。</li>
+                       <li>當螢幕寬度大於 768px 時（通常是平板或電腦），我們會套用不同的 CSS 樣式，例如將垂直排列的頭像和文字，改為水平排列，讓版面在寬螢幕上看起來更舒適。</li>
+                    </ul>
+                </li>
+            </ul>
+             <p class="pt-4">完成這個專案後，你將擁有一個可以展示給任何人看的線上作品集。讓我們開始動手，打造能代表你的數位名片吧！</p>
+        </div>
+
+        <div class="mt-10 text-center">
+            <a href="test_profile.html"
+               class="inline-block bg-green-500 hover:bg-green-600 text-white font-bold py-4 px-10 rounded-full shadow-lg transform hover:scale-105 transition-all duration-200 text-lg">
+                前往個人檔案範例
+            </a>
+        </div>
+    </div>
+</main>
+
+<footer class="bg-gray-800 text-white mt-12">
+    <div class="container mx-auto px-6 py-6 text-center text-gray-400">
+        <p>&copy; 2025 Andy Wang. All Rights Reserved.</p>
+    </div>
+</footer>
+
+</body>
+</html>
