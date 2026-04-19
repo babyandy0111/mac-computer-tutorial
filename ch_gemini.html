@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI 專題 (一)：解鎖 Google Gemini - 繁星電腦課程</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Noto Sans TC', sans-serif; }
+        .gradient-text {
+            background-image: linear-gradient(to right, #3b82f6, #60a5fa, #2563eb);
+            -webkit-background-clip: text; background-clip: text; color: transparent;
+        }
+        .ai-chat-bubble {
+            border-radius: 20px; padding: 16px; margin-bottom: 12px;
+            max-width: 85%; font-size: 0.9rem; line-height: 1.6;
+        }
+        .user-bubble { background: #eff6ff; color: #1e40af; align-self: flex-end; border-bottom-right-radius: 4px; border: 1px solid #dbeafe; }
+        .gemini-bubble { background: white; color: #374151; align-self: flex-start; border-bottom-left-radius: 4px; border: 1px solid #e5e7eb; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        .feature-card { transition: all 0.3s; border: 1px solid #e5e7eb; }
+        .feature-card:hover { transform: translateY(-5px); box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); border-color: #3b82f6; }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen flex flex-col">
+
+<header class="bg-white shadow-sm border-b sticky top-0 z-50">
+    <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+        <div>
+            <h1 class="text-xl md:text-2xl font-bold gradient-text">AI 專題 (一)：Google Gemini 實戰</h1>
+            <p class="text-[10px] text-gray-400 mt-1 uppercase tracking-widest font-bold">Smart Assistant Workshop</p>
+        </div>
+        <a href="index.html" class="bg-blue-50 text-blue-600 hover:bg-blue-600 hover:text-white font-bold py-2 px-4 rounded-xl transition-all text-xs">← 返回列表</a>
+    </div>
+</header>
+
+<div class="flex-1 flex flex-col md:flex-row container mx-auto px-4 py-8 gap-8 overflow-hidden">
+    <nav class="w-full md:w-72 flex-shrink-0">
+        <div class="bg-white rounded-3xl shadow-xl p-5 sticky top-24 border border-gray-100">
+            <h3 class="text-xs font-black text-gray-400 uppercase tracking-widest mb-6 px-2">課程地圖 / Roadmap</h3>
+            <ul id="menu" class="space-y-2 text-sm font-medium">
+                <li data-id="intro" class="menu-item active bg-blue-600 text-white px-4 py-4 rounded-2xl cursor-pointer transition-all flex items-center gap-3 shadow-blue-200 shadow-lg">
+                    <span class="text-lg">✨</span> 核心：最強大腦
+                </li>
+                <li data-id="prompt" class="menu-item hover:bg-blue-50 px-4 py-4 rounded-2xl cursor-pointer transition-all flex items-center gap-3 text-gray-600">
+                    <span class="text-lg">💬</span> 咒語：黃金公式
+                </li>
+                <li data-id="multimodal" class="menu-item hover:bg-blue-50 px-4 py-4 rounded-2xl cursor-pointer transition-all flex items-center gap-3 text-gray-600">
+                    <span class="text-lg">📸</span> 識圖：視覺駭客
+                </li>
+                <li data-id="code" class="menu-item hover:bg-blue-50 px-4 py-4 rounded-2xl cursor-pointer transition-all flex items-center gap-3 text-gray-600">
+                    <span class="text-lg">💻</span> 代碼：編程隊友
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="flex-1 flex flex-col gap-6 overflow-hidden">
+        <div class="bg-white rounded-3xl shadow-xl p-8 md:p-12 min-h-[550px] border border-gray-100 flex flex-col relative overflow-hidden">
+            <div class="absolute top-0 right-0 p-12 opacity-5 pointer-events-none">
+                <img src="https://www.gstatic.com/lamda/images/gemini_sparkle_v002_d473530393318e4701f45.svg" class="w-64 h-64">
+            </div>
+            <h2 id="current-title" class="text-3xl font-black text-gray-800 mb-8 flex items-center gap-4">歡迎學習</h2>
+            <div id="content-area" class="flex-1 flex flex-col"></div>
+        </div>
+    </main>
+</div>
+
+<footer class="bg-white border-t py-8">
+    <div class="container mx-auto px-6 text-center">
+        <p class="text-gray-400 text-xs tracking-widest font-bold uppercase">&copy; 2026 Andy Wang &bull; AI Education Series</p>
+    </div>
+</footer>
+
+<script>
+    const chapters = {
+        intro: {
+            title: "為什麼 Gemini 是你的最強隊友？",
+            html: `
+                <div class="max-w-3xl">
+                    <p class="text-gray-600 mb-10 leading-relaxed italic border-l-4 border-blue-500 pl-6">
+                        一般的搜尋引擎只能給你網頁連結，但 Gemini 能理解你的意圖，幫你「產出」結果。
+                    </p>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+                        <div class="feature-card p-6 rounded-2xl bg-white">
+                            <div class="text-3xl mb-4">🤯</div>
+                            <h4 class="font-bold text-gray-800 mb-2">多模態理解</h4>
+                            <p class="text-xs text-gray-500 leading-relaxed">不只讀文字，它能同步分析圖片中的細節、影片的關鍵畫面與對話內容。</p>
+                        </div>
+                        <div class="feature-card p-6 rounded-2xl bg-white">
+                            <div class="text-3xl mb-4">🔗</div>
+                            <h4 class="font-bold text-gray-800 mb-2">Google 串聯</h4>
+                            <p class="text-xs text-gray-500 leading-relaxed">直接幫你把摘要存到雲端文件 (Docs)，或把計畫表排進 Google 日曆。</p>
+                        </div>
+                        <div class="feature-card p-6 rounded-2xl bg-white">
+                            <div class="text-3xl mb-4">⚡</div>
+                            <h4 class="font-bold text-gray-800 mb-2">毫秒級反應</h4>
+                            <p class="text-xs text-gray-500 leading-relaxed">不管是解 1.0 還是寫複雜的代碼，Gemini 都能在幾秒鐘內給你多個草稿選擇。</p>
+                        </div>
+                    </div>
+                    <div class="bg-blue-600 p-8 rounded-3xl text-center shadow-blue-200 shadow-2xl transition-transform hover:scale-[1.02]">
+                        <h5 class="text-white font-bold mb-4">立刻開始與你的 AI 助教對話</h5>
+                        <a href="https://gemini.google.com" target="_blank" class="inline-block bg-white text-blue-600 font-black py-3 px-10 rounded-full hover:bg-blue-50 transition-colors">👉 Open Gemini</a>
+                    </div>
+                </div>
+            `
+        },
+        prompt: {
+            title: "寫出「高級指令」的黃金公式",
+            html: `
+                <div class="max-w-3xl space-y-8">
+                    <div class="bg-amber-50 p-6 rounded-2xl border border-amber-100">
+                        <h4 class="text-amber-800 font-bold mb-4 flex items-center gap-2">🎯 大師公式：C.R.E.A.T.E</h4>
+                        <ul class="grid grid-cols-2 md:grid-cols-3 gap-4 text-[11px]">
+                            <li class="bg-white p-2 rounded-lg shadow-sm"><b>Character:</b> 定義角色</li>
+                            <li class="bg-white p-2 rounded-lg shadow-sm"><b>Request:</b> 明確任務</li>
+                            <li class="bg-white p-2 rounded-lg shadow-sm"><b>Examples:</b> 提供範例</li>
+                            <li class="bg-white p-2 rounded-lg shadow-sm"><b>Adjustment:</b> 調整語氣</li>
+                            <li class="bg-white p-2 rounded-lg shadow-sm"><b>Type:</b> 輸出格式</li>
+                            <li class="bg-white p-2 rounded-lg shadow-sm"><b>Exclude:</b> 排除內容</li>
+                        </ul>
+                    </div>
+                    <div class="flex flex-col gap-4">
+                        <div class="ai-chat-bubble user-bubble self-end">請扮演【科學家】，幫我向【小學生】解釋【黑洞】。請用【說故事】的方式，並且【不要超過 100 字】。</div>
+                        <div class="ai-chat-bubble gemini-bubble self-start">
+                            想像宇宙中有一隻巨大的「貪吃怪」，它的胃口大到連光都跑不掉！<br><br>
+                            這隻貪吃怪就叫黑洞。它把一大堆星體壓縮進一個超級小的點，讓附近的重力變得無敵強。如果你太靠近它，就會像麵條一樣被拉長喔！
+                        </div>
+                    </div>
+                    <div class="p-4 bg-gray-50 rounded-xl border border-dashed border-gray-300">
+                        <p class="text-xs text-gray-500 font-bold mb-2 uppercase">💡 實戰技巧：</p>
+                        <p class="text-xs text-gray-600 leading-relaxed">如果你對回答不滿意，試著說：「請再更口語一點」或「用表格重新呈現」。</p>
+                    </div>
+                </div>
+            `
+        },
+        multimodal: {
+            title: "讓 AI 成為你的另一雙眼睛",
+            html: `
+                <div class="max-w-3xl space-y-8">
+                    <p class="text-sm text-gray-600 leading-relaxed">點擊對話框左側的 <b>+</b> 號上傳圖片，試試這些超強功能：</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="p-5 bg-white border rounded-2xl shadow-sm border-l-8 border-purple-500">
+                            <p class="font-bold text-gray-800 text-sm mb-2">📚 拍下難懂的筆記</p>
+                            <p class="text-[11px] text-gray-500 italic mb-3">「這張圖裡的科學實驗步驟，請幫我整理成更簡短的複習清單。」</p>
+                            <span class="text-[10px] bg-purple-50 text-purple-600 px-2 py-1 rounded">資料萃取</span>
+                        </div>
+                        <div class="p-5 bg-white border rounded-2xl shadow-sm border-l-8 border-green-500">
+                            <p class="font-bold text-gray-800 text-sm mb-2">🍱 拍下晚餐食材</p>
+                            <p class="text-[11px] text-gray-500 italic mb-3">「這是我冰箱有的東西，請幫我規劃三道健康的食譜。」</p>
+                            <span class="text-[10px] bg-green-50 text-green-600 px-2 py-1 rounded">生活創意</span>
+                        </div>
+                        <div class="p-5 bg-white border rounded-2xl shadow-sm border-l-8 border-blue-500">
+                            <p class="font-bold text-gray-800 text-sm mb-2">🎨 拍下你的手繪草圖</p>
+                            <p class="text-[11px] text-gray-500 italic mb-3">「這是我設計的個人網頁手稿，請幫我寫出對應的 HTML 程式碼。」</p>
+                            <span class="text-[10px] bg-blue-50 text-blue-600 px-2 py-1 rounded">代碼轉換</span>
+                        </div>
+                        <div class="p-5 bg-white border rounded-2xl shadow-sm border-l-8 border-red-500">
+                            <p class="font-bold text-gray-800 text-sm mb-2">🗺️ 拍下旅遊地圖</p>
+                            <p class="text-[11px] text-gray-500 italic mb-3">「這張地圖裡標註的景點，請幫我規劃一條不走回頭路的路線。」</p>
+                            <span class="text-[10px] bg-red-50 text-red-600 px-2 py-1 rounded">邏輯分析</span>
+                        </div>
+                    </div>
+                </div>
+            `
+        },
+        code: {
+            title: "你的 24 小時編程教練",
+            html: `
+                <div class="max-w-3xl space-y-6">
+                    <div class="bg-gray-900 rounded-2xl p-6 font-mono text-[11px] text-green-400 shadow-2xl relative overflow-hidden">
+                        <div class="absolute top-0 right-0 p-4 text-[9px] text-gray-600">Copilot Mode</div>
+                        <span class="text-gray-500">// 像資深工程師一樣提問</span><br>
+                        「我正在做一個 <span class="text-blue-400">jQuery</span> 打字遊戲，<br>
+                        當 <span class="text-yellow-400">#input</span> 內容與 <span class="text-yellow-400">#target</span> 一致時，<br>
+                        請幫我寫一段特效代碼：讓螢幕背景閃爍綠光一次。」
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="space-y-4">
+                            <h4 class="font-bold text-blue-600 text-sm uppercase tracking-widest">你可以請它做：</h4>
+                            <ul class="space-y-3 text-xs text-gray-600">
+                                <li class="flex items-center gap-2">🔍 <b>除錯</b>：貼上錯誤訊息，它會告訴你少了一個分號。</li>
+                                <li class="flex items-center gap-2">💡 <b>解說</b>：讓它解釋網路上下載的 Library 怎麼用。</li>
+                                <li class="flex items-center gap-2">🚀 <b>優化</b>：問它：「有沒有更簡短的寫法？」</li>
+                            </ul>
+                        </div>
+                        <div class="bg-white border p-6 rounded-2xl">
+                            <p class="text-[11px] text-gray-400 mb-4 uppercase font-black tracking-widest text-center">實戰小專案挑戰</p>
+                            <p class="text-xs text-gray-700 leading-relaxed mb-4">試著對 Gemini 說：「幫我寫一個可以倒數 3 分鐘的泡麵計時器，時間到時文字要變成紅色並跳出視窗。」</p>
+                            <div class="text-center"><span class="text-3xl">🍜</span></div>
+                        </div>
+                    </div>
+                </div>
+            `
+        }
+    };
+
+    function render(id) {
+        const data = chapters[id];
+        $('#current-title').text(data.title);
+        $('#content-area').html(data.html).hide().fadeIn(400);
+    }
+
+    $('#menu li').click(function() {
+        $('.menu-item').removeClass('active bg-blue-600 text-white shadow-blue-200 shadow-lg').addClass('hover:bg-blue-50 text-gray-600');
+        $(this).addClass('active bg-blue-600 text-white shadow-blue-200 shadow-lg').removeClass('hover:bg-blue-50 text-gray-600');
+        render($(this).data('id'));
+    });
+
+    $(document).ready(() => render('intro'));
+</script>
+</body>
+</html>

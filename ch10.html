@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第十章：JS & jQuery 實戰開發 - 繁星電腦課程</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    
+    <!-- Prism.js 語法高亮 (使用 Tomorrow Night 主題) -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.css" rel="stylesheet" />
+    
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    
+    <style>
+        body { font-family: 'Noto Sans TC', sans-serif; }
+        .gradient-text {
+            background-image: linear-gradient(to right, #3b82f6, #14b8a6, #a855f7);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        /* Prism 樣式微調 */
+        pre[class*="language-"] {
+            margin: 0 !important;
+            padding: 1.5rem !important;
+            background: #1e1e1e !important;
+            border-radius: 0 !important;
+            height: 100%;
+            font-family: 'Fira Code', monospace !important;
+            font-size: 14px !important;
+        }
+        .line-numbers .line-numbers-rows {
+            border-right: 1px solid #333 !important;
+            padding: 1.5rem 0 !important;
+        }
+
+        /* 滾動條美化 */
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: #1e1e1e; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #444; }
+
+        #reaction-target {
+            width: 100px; height: 100px; background: #ef4444; border-radius: 50%;
+            cursor: pointer; display: none;
+        }
+        #jq-demo-box {
+            width: 120px; height: 120px; background: #8b5cf6; border-radius: 12px;
+            margin: 20px; display: flex; align-items: center; justify-content: center; color: white;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col">
+
+<!-- Header -->
+<header class="bg-white shadow-sm border-b">
+    <div class="container mx-auto px-6 py-6 flex justify-between items-center">
+        <div>
+            <h1 class="text-2xl font-bold gradient-text">第十章：JS & jQuery 實戰開發</h1>
+            <p class="text-sm text-gray-500 mt-1">繁星雙語蒙特梭利實驗教育團體</p>
+        </div>
+        <a href="index.html" class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-medium py-2 px-4 rounded-lg transition-colors text-sm">
+            ← 返回課程列表
+        </a>
+    </div>
+</header>
+
+<div class="flex-1 flex flex-col md:flex-row container mx-auto px-4 py-8 gap-6 overflow-hidden">
+    <!-- 側邊導航 -->
+    <nav class="w-full md:w-64 flex-shrink-0">
+        <div class="bg-white rounded-2xl shadow-lg p-4 sticky top-8">
+            <h3 class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-4 px-2">課程專案</h3>
+            <ul id="menu" class="space-y-1">
+                <li data-id="intro" class="menu-item active bg-blue-50 text-blue-600 font-medium px-4 py-3 rounded-xl cursor-pointer transition-all flex items-center gap-3">
+                    <span>🚀</span> 認識 jQuery
+                </li>
+                <li data-id="guess" class="menu-item hover:bg-gray-50 px-4 py-3 rounded-xl cursor-pointer transition-all flex items-center gap-3 text-gray-600 font-medium">
+                    <span>🎯</span> 1. 猜數字遊戲
+                </li>
+                <li data-id="counter" class="menu-item hover:bg-gray-50 px-4 py-3 rounded-xl cursor-pointer transition-all flex items-center gap-3 text-gray-600 font-medium">
+                    <span>➕</span> 2. 計數器
+                </li>
+                <li data-id="reaction" class="menu-item hover:bg-gray-50 px-4 py-3 rounded-xl cursor-pointer transition-all flex items-center gap-3 text-gray-600 font-medium">
+                    <span>⚡</span> 3. 反應速度
+                </li>
+                <li data-id="rps" class="menu-item hover:bg-gray-50 px-4 py-3 rounded-xl cursor-pointer transition-all flex items-center gap-3 text-gray-600 font-medium">
+                    <span>👊</span> 4. 剪刀石頭布
+                </li>
+                <li data-id="typing" class="menu-item hover:bg-gray-50 px-4 py-3 rounded-xl cursor-pointer transition-all flex items-center gap-3 text-gray-600 font-medium">
+                    <span>⌨️</span> 5. 打字挑戰
+                </li>
+                <li data-id="jquery" class="menu-item hover:bg-gray-50 px-4 py-3 rounded-xl cursor-pointer transition-all flex items-center gap-3 text-gray-600 font-medium">
+                    <span>✨</span> jQuery 特效
+                </li>
+                <li data-id="ai_prompts" class="menu-item hover:bg-gray-50 px-4 py-3 rounded-xl cursor-pointer transition-all flex items-center gap-3 text-purple-600 font-bold border-t mt-4 pt-4">
+                    <span>🤖</span> AI 提示詞指南
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- 主內容區 -->
+    <main class="flex-1 flex flex-col gap-6 overflow-hidden">
+        <!-- 實作區塊 -->
+        <div class="bg-white rounded-2xl shadow-xl p-8 flex flex-col items-center justify-center min-h-[350px] border border-gray-100 relative overflow-hidden">
+            <div class="absolute top-4 left-6">
+                <span class="text-xs font-bold text-gray-300 uppercase tracking-widest">Live Preview 實作預覽</span>
+            </div>
+            <h2 id="current-title" class="text-2xl font-bold text-gray-800 mb-6">歡迎學習</h2>
+            <div id="preview-area" class="w-full flex flex-col items-center justify-center">
+                <!-- 內容由 JS 動態生成 -->
+            </div>
+        </div>
+
+        <!-- 程式碼區塊 -->
+        <div id="code-section" class="bg-white rounded-2xl shadow-xl overflow-hidden flex flex-col h-[500px] border border-gray-100">
+            <div class="flex items-center justify-between px-6 py-3 bg-gray-50 border-b border-gray-100">
+                <div class="flex gap-1" id="code-tabs">
+                    <button class="tab active px-4 py-2 text-sm font-medium border-b-2 border-blue-500 text-blue-600" data-lang="markup">HTML</button>
+                    <button class="tab px-4 py-2 text-sm font-medium text-gray-500 hover:text-gray-700 transition-colors" data-lang="css">CSS</button>
+                    <button class="tab px-4 py-2 text-sm font-medium text-gray-500 hover:text-gray-700 transition-colors" data-lang="javascript">JavaScript</button>
+                </div>
+                <span class="text-[10px] text-gray-400 font-mono">CODE VIEWER</span>
+            </div>
+            <div class="flex-1 overflow-hidden" id="code-container">
+                <pre class="line-numbers"><code id="code-content"></code></pre>
+            </div>
+        </div>
+    </main>
+</div>
+
+<footer class="bg-gray-800 text-white mt-12">
+    <div class="container mx-auto px-6 py-6 text-center text-gray-400 text-sm">
+        <p>&copy; 2026 Andy Wang. All Rights Reserved.</p>
+    </div>
+</footer>
+
+<!-- Prism.js Scripts -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
+
+<script>
+    // 專案代碼
+    const projects = {
+        intro: {
+            title: "什麼是 jQuery？為什麼要用它？",
+            markup: `<!-- 1. 在你的 <head> 標籤裡面加入這行 -->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"><\/script>
+
+<!-- 2. 然後你就可以寫更簡單的 JS 了 -->
+<button id="helloBtn">點我</button>
+<p id="msg" style="display:none">Hello World!</p>`,
+            css: `/* 簡單的美化 */
+#helloBtn {
+    background: #3b82f6;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+}`,
+            javascript: `// 原生 JavaScript 寫法：
+// document.getElementById('helloBtn').addEventListener('click', function() { ... });
+
+// jQuery 寫法 (超簡單！)：
+$('#helloBtn').click(function() {
+    $('#msg').fadeIn(); // 讓訊息慢慢浮現
+});`,
+            preview: () => `
+                <div class="text-center max-w-md">
+                    <p class="text-gray-600 mb-6 leading-relaxed text-sm text-left">
+                        <b>jQuery</b> 是一個 JavaScript 的「工具箱」(Library)。<br><br>
+                        就像玩樂高時，我們不需要從塑膠原料開始製作積木，而是直接拿現成的積木來組合。jQuery 把原本很複雜的網頁操作簡化了，讓你用更少的代碼做出更酷的效果！
+                    </p>
+                    <div class="bg-blue-50 p-4 rounded-xl border border-blue-100 text-left mb-6">
+                        <p class="text-xs font-bold text-blue-600 mb-2">如何引用工具箱？</p>
+                        <p class="text-[11px] text-gray-500 leading-tight font-mono bg-white p-2 rounded">
+                            &lt;script src="https://code.jquery.com/jquery-3.7.1.min.js"&gt;&lt;/script&gt;
+                        </p>
+                    </div>
+                    <button class="bg-blue-500 text-white px-6 py-2 rounded-lg" onclick="$('#intro-msg').slideToggle()">測試 jQuery 指令</button>
+                    <p id="intro-msg" class="mt-4 text-blue-600 font-bold" style="display:none">✨ 恭喜！工具箱運作正常！</p>
+                </div>`
+        },
+        guess: {
+            title: "1. 猜數字遊戲 (條件判斷)",
+            markup: `<div class="flex flex-col items-center gap-4">
+    <p class="text-gray-600">猜 1~100 之間的數字：</p>
+    <div class="flex gap-2">
+        <input type="number" id="gInput" class="border-2 border-blue-100 rounded-xl px-4 py-2 w-32 text-center focus:border-blue-400 outline-none transition-all">
+        <button class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-6 rounded-xl shadow-md transition-all active:scale-95" id="gBtn">送出</button>
+    </div>
+    <p class="font-bold" id="gMsg">請輸入數字...</p>
+    <p class="text-sm text-gray-400 text-center">嘗試次數：<span id="gCount" class="text-blue-500 font-bold">0</span></p>
+</div>`,
+            css: `#gInput:focus { border-color: #3b82f6; box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2); }`,
+            javascript: `let target = Math.floor(Math.random() * 100) + 1;
+let count = 0;
+
+$('#gBtn').click(function() {
+    count++;
+    $('#gCount').text(count);
+    
+    let val = $('#gInput').val();
+    if (val == target) {
+        $('#gMsg').text("🎉 答對了！").css('color', '#10b981');
+    } else if (val < target) {
+        $('#gMsg').text("🔼 太小了，再高一點").css('color', '#f59e0b');
+    } else {
+        $('#gMsg').text("🔽 太大了，再低一點").css('color', '#ef4444');
+    }
+});`,
+            init: function() {
+                let target = Math.floor(Math.random() * 100) + 1;
+                let count = 0;
+                $('#gBtn').off('click').on('click', () => {
+                    count++; $('#gCount').text(count);
+                    let val = $('#gInput').val();
+                    if (val == target) $('#gMsg').text("🎉 答對了！").css('color', '#10b981');
+                    else if (val < target) $('#gMsg').text("🔼 太小了，再高一點").css('color', '#f59e0b');
+                    else $('#gMsg').text("🔽 太大了，再低一點").css('color', '#ef4444');
+                });
+            }
+        },
+        counter: {
+            title: "2. 計數器 (DOM 操作)",
+            markup: `<div class="flex flex-col items-center gap-6">
+    <div class="text-7xl font-black text-gray-800" id="cVal">0</div>
+    <div class="flex gap-4">
+        <button class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-8 rounded-xl shadow-lg transition-all active:scale-95" id="cPlus">+ 加分</button>
+        <button class="bg-red-500 hover:bg-red-600 text-white font-bold py-3 px-8 rounded-xl shadow-lg transition-all active:scale-95" id="cMinus">- 減分</button>
+    </div>
+</div>`,
+            css: `#cVal { min-width: 100px; text-align: center; }`,
+            javascript: `let score = 0;
+$('#cPlus').click(function() {
+    score++;
+    $('#cVal').text(score);
+});
+$('#cMinus').click(function() {
+    score--;
+    $('#cVal').text(score);
+});`,
+            init: function() {
+                let score = 0;
+                $('#cPlus').off('click').on('click', () => { score++; $('#cVal').text(score); });
+                $('#cMinus').off('click').on('click', () => { score--; $('#cVal').text(score); });
+            }
+        },
+        reaction: {
+            title: "3. 反應遊戲 (時間計算)",
+            markup: `<div class="flex flex-col items-center gap-4">
+    <button class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-8 rounded-xl" id="rStart">開始測試</button>
+    <div id="reaction-target" class="shadow-xl"></div>
+    <p class="font-bold text-gray-500" id="rRes">等待圓圈出現...</p>
+    <p class="text-xs text-gray-400">最快紀錄：<span id="rBest" class="font-bold">--</span> ms</p>
+</div>`,
+            css: `#reaction-target { width: 100px; height: 100px; background: #ef4444; border-radius: 50%; display:none; }`,
+            javascript: `let startTime, best = Infinity;
+$('#rStart').click(function() {
+    $('#reaction-target').hide();
+    setTimeout(() => {
+        $('#reaction-target').show();
+        startTime = Date.now();
+    }, Math.random() * 2000 + 1000);
+});
+$('#reaction-target').click(function() {
+    let diff = Date.now() - startTime;
+    if (diff < best) { best = diff; $('#rBest').text(best); }
+    $('#rRes').text("反應時間：" + diff + "ms").css('color', '#3b82f6');
+    $(this).hide();
+});`,
+            init: function() {
+                let start, best = Infinity;
+                $('#rStart').off('click').on('click', () => {
+                    $('#reaction-target').hide();
+                    setTimeout(() => { $('#reaction-target').show(); start = Date.now(); }, Math.random()*2000+1000);
+                });
+                $('#reaction-target').off('click').on('click', function() {
+                    let diff = Date.now() - start;
+                    if(diff < best) { best = diff; $('#rBest').text(best); }
+                    $('#rRes').text(`本次反應：${diff}ms`).css('color', '#3b82f6');
+                    $(this).hide();
+                });
+            }
+        },
+        rps: {
+            title: "4. 剪刀石頭布 (陣列運用)",
+            markup: `<div class="flex flex-col items-center gap-6">
+    <div class="flex gap-3">
+        <button class="bg-white border-2 border-gray-100 hover:border-blue-300 p-4 rounded-2xl transition-all" onclick="playRPS('石頭')">✊</button>
+        <button class="bg-white border-2 border-gray-100 hover:border-blue-300 p-4 rounded-2xl transition-all" onclick="playRPS('剪刀')">✌️</button>
+        <button class="bg-white border-2 border-gray-100 hover:border-blue-300 p-4 rounded-2xl transition-all" onclick="playRPS('布')">✋</button>
+    </div>
+    <p class="text-lg font-bold text-blue-600" id="rpsRes">請出拳...</p>
+</div>`,
+            css: ``,
+            javascript: `const options = ['石頭', '剪刀', '布'];
+function playRPS(player) {
+    const bot = options[Math.floor(Math.random() * 3)];
+    let res = (player === bot) ? "平手" : "判斷輸贏邏輯...";
+    $('#rpsRes').text("電腦出 " + bot + "，" + res);
+}`,
+            init: function() {
+                const opt = ['石頭', '剪刀', '布'];
+                window.playRPS = (p) => {
+                    const b = opt[Math.floor(Math.random()*3)];
+                    let res = (p === b) ? "平手" : "有贏有輸！";
+                    $('#rpsRes').text(`電腦出 ${b}，${res}`);
+                };
+            }
+        },
+        typing: {
+            title: "5. 打字遊戲 (定時器)",
+            markup: `<div class="flex flex-col items-center gap-4">
+    <b id="targetWord" class="text-4xl bg-blue-50 text-blue-600 px-4 py-1 rounded-lg">JavaScript</b>
+    <input type="text" id="tInput" class="border-2 border-gray-200 rounded-xl px-4 py-3 w-64 text-center">
+    <p class="text-sm font-bold text-red-500">剩餘時間：<span id="timer">10</span> 秒</p>
+</div>`,
+            css: ``,
+            javascript: `let timeLeft = 10;
+let timer = setInterval(function() {
+    timeLeft--;
+    $('#timer').text(timeLeft);
+    if (timeLeft <= 0) { clearInterval(timer); alert("時間到！"); }
+}, 1000);`,
+            init: function() {
+                let left = 10;
+                let t = setInterval(() => {
+                    left--; $('#timer').text(left);
+                    if(left <= 0) { clearInterval(t); $('#tInput').prop('disabled', true); }
+                }, 1000);
+            }
+        },
+        jquery: {
+            title: "✨ jQuery 基礎特效",
+            markup: `<div class="flex flex-col items-center gap-4">
+    <div id="jq-demo-box" class="font-bold">特效展示</div>
+    <div class="flex flex-wrap justify-center gap-2">
+        <button class="bg-gray-100 px-4 py-2 rounded-lg" id="btnToggle">切換顯示 (Toggle)</button>
+        <button class="bg-blue-100 px-4 py-2 rounded-lg text-blue-600" id="btnFade">淡入淡出 (Fade)</button>
+        <button class="bg-green-100 px-4 py-2 rounded-lg text-green-600" id="btnSlide">滑動 (Slide)</button>
+    </div>
+</div>`,
+            css: ``,
+            javascript: `$('#btnToggle').click(() => $('#jq-demo-box').toggle(500));
+$('#btnFade').click(() => $('#jq-demo-box').fadeToggle(500));
+$('#btnSlide').click(() => $('#jq-demo-box').slideToggle(500));`,
+            init: function() {
+                $('#btnToggle').off('click').on('click', () => $('#jq-demo-box').toggle(500));
+                $('#btnFade').off('click').on('click', () => $('#jq-demo-box').fadeToggle(500));
+                $('#btnSlide').off('click').on('click', () => $('#jq-demo-box').slideToggle(500));
+            }
+        },
+        ai_prompts: {
+            title: "🤖 AI 提示詞大補帖：讓你的網站變專業",
+            markup: `<!-- 這頁不需要寫 HTML，直接看預覽區的教學！ -->`,
+            css: `/* 這些術語可以幫助你跟 AI 溝通 */`,
+            javascript: `// 試著對 ChatGPT 說：
+// 「幫我用 HTML/CSS/JS 寫一個帶有 [Navbar] 且點擊圖片會觸發 [Lightbox] 的網頁」`,
+            preview: () => `
+                <div class="w-full max-w-4xl text-left overflow-y-auto max-h-[500px] pr-4 pb-8">
+                    <div class="bg-gradient-to-r from-purple-500 to-indigo-600 text-white p-6 rounded-2xl shadow-lg mb-8">
+                        <h3 class="text-xl font-bold mb-2">🤖 網頁設計師的魔法咒語</h3>
+                        <p class="text-sm opacity-90">
+                            學過 AI 的你們，只要學會正確的「專有名詞」，就能讓 AI 幫你寫出超強的網頁功能！<br>
+                            下次試著把這些英文單字加進你的提示詞 (Prompt) 裡吧！
+                        </p>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        <!-- 區塊 1: 版面佈局類 -->
+                        <div class="bg-white border-2 border-gray-100 rounded-xl p-5 hover:border-purple-200 transition-colors">
+                            <div class="flex items-center gap-3 mb-3">
+                                <span class="text-2xl">🧭</span>
+                                <h4 class="font-bold text-gray-800">版面佈局 (Layout)</h4>
+                            </div>
+                            <div class="space-y-4">
+                                <div>
+                                    <div class="flex items-baseline gap-2"><span class="text-purple-600 font-bold">Navbar</span><span class="text-xs text-gray-500">導覽列</span></div>
+                                    <p class="text-xs text-gray-400 mt-1">網頁最上方的選單，通常有 Logo 和連結。</p>
+                                    <div class="mt-2 bg-gray-50 p-2 rounded text-xs font-mono text-gray-600">
+                                        💬 「幫我寫一個黑色的 Navbar，左邊放 Logo，右邊放 3 個選單連結。」
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="flex items-baseline gap-2"><span class="text-purple-600 font-bold">Hero Section</span><span class="text-xs text-gray-500">主視覺區</span></div>
+                                    <p class="text-xs text-gray-400 mt-1">網頁一進去看到的那個超大橫幅圖與大標題。</p>
+                                    <div class="mt-2 bg-gray-50 p-2 rounded text-xs font-mono text-gray-600">
+                                        💬 「我要一個 Hero Section，背景是星空圖，中間要有『歡迎來到我的世界』的大字。」
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="flex items-baseline gap-2"><span class="text-purple-600 font-bold">Footer</span><span class="text-xs text-gray-500">頁尾</span></div>
+                                    <p class="text-xs text-gray-400 mt-1">網頁最下方放聯絡資訊跟版權的地方。</p>
+                                    <div class="mt-2 bg-gray-50 p-2 rounded text-xs font-mono text-gray-600">
+                                        💬 「網頁底部需要一個 Footer，裡面要有我的 IG 連結和版權宣告。」
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 區塊 2: 個人履歷必備 -->
+                        <div class="bg-white border-2 border-gray-100 rounded-xl p-5 hover:border-blue-200 transition-colors">
+                            <div class="flex items-center gap-3 mb-3">
+                                <span class="text-2xl">🎓</span>
+                                <h4 class="font-bold text-gray-800">個人履歷必備 (Resume)</h4>
+                            </div>
+                            <div class="space-y-4">
+                                <div>
+                                    <div class="flex items-baseline gap-2"><span class="text-blue-600 font-bold">Timeline</span><span class="text-xs text-gray-500">時間軸</span></div>
+                                    <p class="text-xs text-gray-400 mt-1">用一條線串起你的學習歷程或得獎紀錄，非常專業！</p>
+                                    <div class="mt-2 bg-gray-50 p-2 rounded text-xs font-mono text-gray-600">
+                                        💬 「請幫我用 HTML/CSS 畫一個 Timeline，用來展示我國一到國三的學習經歷。」
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="flex items-baseline gap-2"><span class="text-blue-600 font-bold">Skill Bar</span><span class="text-xs text-gray-500">技能進度條</span></div>
+                                    <p class="text-xs text-gray-400 mt-1">用長條圖顯示你的各項技能熟練度（例如：英文 80%, 程式 90%）。</p>
+                                    <div class="mt-2 bg-gray-50 p-2 rounded text-xs font-mono text-gray-600">
+                                        💬 「我需要 3 個 Skill Bar，要有載入時從 0% 跑出來的動畫效果。」
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="flex items-baseline gap-2"><span class="text-blue-600 font-bold">Portfolio Gallery</span><span class="text-xs text-gray-500">作品集畫廊</span></div>
+                                    <p class="text-xs text-gray-400 mt-1">整齊排列你過去做過的專案或拍過的照片，最好還能分類過濾。</p>
+                                    <div class="mt-2 bg-gray-50 p-2 rounded text-xs font-mono text-gray-600">
+                                        💬 「幫我做一個可以分類的 Portfolio Gallery，上面有按鈕可以切換『程式設計』跟『美術設計』的作品。」
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 區塊 3: 酷炫功能類 -->
+                        <div class="bg-white border-2 border-gray-100 rounded-xl p-5 hover:border-indigo-200 transition-colors">
+                            <div class="flex items-center gap-3 mb-3">
+                                <span class="text-2xl">✨</span>
+                                <h4 class="font-bold text-gray-800">酷炫功能 (Features)</h4>
+                            </div>
+                            <div class="space-y-4">
+                                <div>
+                                    <div class="flex items-baseline gap-2"><span class="text-indigo-600 font-bold">Lightbox</span><span class="text-xs text-gray-500">燈箱效果</span></div>
+                                    <p class="text-xs text-gray-400 mt-1">點擊小圖片後，背景變暗並彈出大圖的效果。</p>
+                                    <div class="mt-2 bg-gray-50 p-2 rounded text-xs font-mono text-gray-600">
+                                        💬 「幫我用 jQuery 寫一個圖片點擊後會放大的 Lightbox 特效。」
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="flex items-baseline gap-2"><span class="text-indigo-600 font-bold">Carousel / Slider</span><span class="text-xs text-gray-500">輪播圖</span></div>
+                                    <p class="text-xs text-gray-400 mt-1">會自動向左或向右滑動的照片牆。</p>
+                                    <div class="mt-2 bg-gray-50 p-2 rounded text-xs font-mono text-gray-600">
+                                        💬 「我需要一個圖片 Carousel，每 3 秒自動播放下一張。」
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="flex items-baseline gap-2"><span class="text-indigo-600 font-bold">FAB (Floating Action Button)</span><span class="text-xs text-gray-500">懸浮按鈕</span></div>
+                                    <p class="text-xs text-gray-400 mt-1">固定在畫面右下角的按鈕，常拿來做「回到頂部」或「聯絡我」。</p>
+                                    <div class="mt-2 bg-gray-50 p-2 rounded text-xs font-mono text-gray-600">
+                                        💬 「幫我在右下角加一個 FAB，點了之後畫面會平滑地滾動到最上面。」
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 區塊 4: 專業設計與特效 -->
+                        <div class="bg-white border-2 border-gray-100 rounded-xl p-5 hover:border-pink-200 transition-colors">
+                            <div class="flex items-center gap-3 mb-3">
+                                <span class="text-2xl">🎨</span>
+                                <h4 class="font-bold text-gray-800">專業設計與特效</h4>
+                            </div>
+                            <div class="space-y-4">
+                                <div>
+                                    <div class="flex items-baseline gap-2"><span class="text-pink-600 font-bold">Responsive</span><span class="text-xs text-gray-500">響應式設計</span></div>
+                                    <p class="text-xs text-gray-400 mt-1">讓網頁在手機、平板、電腦看都不會變形跑版。</p>
+                                    <div class="mt-2 bg-gray-50 p-2 rounded text-xs font-mono text-gray-600">
+                                        💬 「這段程式碼請確保是 Responsive 的，手機版選單要變成漢堡按鈕 (Hamburger menu)。」
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="flex items-baseline gap-2"><span class="text-pink-600 font-bold">Scroll Animation</span><span class="text-xs text-gray-500">滾動動畫</span></div>
+                                    <p class="text-xs text-gray-400 mt-1">當滑鼠往下滾動到某個區塊時，裡面的字或圖片才從旁邊滑出來。</p>
+                                    <div class="mt-2 bg-gray-50 p-2 rounded text-xs font-mono text-gray-600">
+                                        💬 「我想要加入 Scroll Animation，當我往下滾到作品集時，作品要從下往上淡入顯示。」
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="flex items-baseline gap-2"><span class="text-pink-600 font-bold">Dark Mode</span><span class="text-xs text-gray-500">深色模式切換</span></div>
+                                    <p class="text-xs text-gray-400 mt-1">讓使用者可以點擊按鈕，一秒將網站底色切換成酷炫的黑色系。</p>
+                                    <div class="mt-2 bg-gray-50 p-2 rounded text-xs font-mono text-gray-600">
+                                        💬 「請幫我做一個可以切換 Dark Mode 的按鈕，切換時背景跟文字顏色要平滑過渡。」
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-8 p-6 bg-gray-800 rounded-2xl text-gray-200 shadow-2xl relative overflow-hidden">
+                        <div class="absolute -right-10 -top-10 text-9xl opacity-10">🧙‍♂️</div>
+                        <h4 class="text-xl font-bold text-yellow-400 mb-4 flex items-center gap-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+                            大師級終極咒語：結構化超級提示詞 (Super Prompt)
+                        </h4>
+                        <p class="text-sm leading-relaxed mb-6 text-gray-300">
+                            這是一個專業網頁工程師會使用的「下指令方式」。它不僅告訴 AI 要做什麼，還規定了<span class="text-yellow-400">「怎麼做」</span>與<span class="text-yellow-400">「什麼風格」</span>。把這整段複製給 ChatGPT，看看效果有多驚人！
+                        </p>
+                        
+                        <div class="relative">
+                            <div class="absolute top-0 right-0 bg-yellow-500 text-gray-900 text-[10px] font-bold px-2 py-1 rounded-bl-lg rounded-tr-sm">MASTER SPELL</div>
+                            <div class="bg-gray-900 p-5 rounded-xl border border-gray-700 font-mono text-sm text-green-400 leading-relaxed overflow-x-auto whitespace-pre-wrap">「請扮演一名資深的【Full-Stack 網頁架構師】與【UI/UX 設計大師】。
+
+我需要你為我設計一個極具現代感、充滿互動細節的【個人數位履歷網站】。
+
+請嚴格遵守以下開發規格：
+1. 【技術棧】：使用 HTML5、最新版 Tailwind CSS、以及 jQuery。
+2. 【設計風格】：極簡主義 (Minimalism)，背景使用深灰色調 (#121212)，文字使用純白與淡灰色，重點強調色使用蘋果藍 (#007AFF)。
+3. 【必要元件與功能】：
+   - 【Navbar】：透明磨砂玻璃質感 (Glassmorphism)，捲動時自動變色。
+   - 【Hero】：超大標題搭配一個帶有呼吸燈效果的【CTA 按鈕】。
+   - 【Timeline】：設計一個垂直的互動式時間軸，滑鼠移過去時節點要放大。
+   - 【Skill Bar】：當頁面滾動到該區域時，進度條才由左往右滑動出來。
+   - 【Gallery】：使用 Grid 排版我的作品，點擊圖片要觸發【Lightbox】燈箱效果。
+   - 【FAB】：右下角放一個【回到頂部】的圓形懸浮按鈕。
+4. 【響應式要求】：必須完美支援手機版，選單在手機上要自動收合為【漢堡選單】。
+
+請直接給我完整的、包含所有 CSS 與 JS 的單一 HTML 檔案代碼。」</div>
+                        </div>
+                        
+                        <div class="mt-6 flex flex-wrap gap-2">
+                            <span class="text-[10px] bg-gray-700 px-2 py-1 rounded text-gray-400">#定義角色</span>
+                            <span class="text-[10px] bg-gray-700 px-2 py-1 rounded text-gray-400">#指定技術</span>
+                            <span class="text-[10px] bg-gray-700 px-2 py-1 rounded text-gray-400">#細節拆解</span>
+                            <span class="text-[10px] bg-gray-700 px-2 py-1 rounded text-gray-400">#風格控制</span>
+                        </div>
+                    </div>
+                </div>`
+        }
+    };
+
+    let currentProject = 'intro';
+    let currentLang = 'markup';
+
+    function render() {
+        const p = projects[currentProject];
+        $('#current-title').text(p.title);
+        
+        // 處理 AI 提示詞指南的特殊顯示
+        if (currentProject === 'ai_prompts') {
+            $('#code-section').hide();
+            $('#preview-area').parent().addClass('flex-1').removeClass('min-h-[350px]');
+        } else {
+            $('#code-section').show();
+            $('#preview-area').parent().removeClass('flex-1').addClass('min-h-[350px]');
+        }
+
+        // 更新預覽區
+        if (typeof p.preview === 'function') {
+            $('#preview-area').html(p.preview());
+        } else {
+            $('#preview-area').html(p.markup);
+            if (p.init) p.init();
+        }
+
+        updateCodeDisplay();
+    }
+
+    function updateCodeDisplay() {
+        const p = projects[currentProject];
+        let code = p[currentLang] || "";
+        
+        if (currentLang === 'markup' && currentProject !== 'intro' && currentProject !== 'ai_prompts') {
+            const indentedCode = code.split('\n').map(line => '    ' + line).join('\n');
+            code = `<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>${p.title}</title>
+    <script src="https://cdn.tailwindcss.com"><\/script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"><\/script>
+</head>
+<body>
+
+${indentedCode}
+
+</body>
+</html>`;
+        }
+
+        const codeElement = document.getElementById('code-content');
+        codeElement.className = 'language-' + currentLang;
+        codeElement.textContent = code;
+        Prism.highlightElement(codeElement);
+    }
+
+    $('#menu li').click(function() {
+        $('.menu-item').removeClass('active bg-blue-50 text-blue-600 font-medium').addClass('hover:bg-gray-50 text-gray-600');
+        $(this).addClass('active bg-blue-50 text-blue-600 font-medium').removeClass('hover:bg-gray-50 text-gray-600');
+        currentProject = $(this).data('id');
+        render();
+    });
+
+    $('.tab').click(function() {
+        $('.tab').removeClass('active border-blue-500 text-blue-600').addClass('text-gray-500');
+        $(this).addClass('active border-blue-500 text-blue-600').removeClass('text-gray-500');
+        currentLang = $(this).data('lang');
+        updateCodeDisplay();
+    });
+
+    $(document).ready(() => render());
+</script>
+
+</body>
+</html>

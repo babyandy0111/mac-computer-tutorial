@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI 專題 (三)：NotebookLM 知識庫 - 繁星電腦課程</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Noto Sans TC', sans-serif; }
+        .gradient-text {
+            background-image: linear-gradient(to right, #7c3aed, #a78bfa, #6d28d9);
+            -webkit-background-clip: text; background-clip: text; color: transparent;
+        }
+        .source-card { border: 2px solid #f3f4f6; transition: all 0.3s; background: white; }
+        .source-card:hover { border-color: #a78bfa; transform: translateY(-3px); box-shadow: 0 4px 12px rgba(124, 58, 237, 0.1); }
+        .qa-bubble { border-radius: 1.5rem; padding: 1rem; margin-bottom: 1rem; position: relative; }
+        .qa-user { background: #f5f3ff; color: #5b21b6; border-bottom-right-radius: 0.25rem; margin-left: 2rem; border: 1px solid #ede9fe; }
+        .qa-ai { background: #fafafa; color: #1f2937; border-bottom-left-radius: 0.25rem; margin-right: 2rem; border: 1px solid #e5e7eb; }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen flex flex-col font-sans text-gray-800">
+
+<header class="bg-white shadow-sm border-b sticky top-0 z-50">
+    <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+        <div>
+            <h1 class="text-xl md:text-2xl font-bold gradient-text">AI 專題 (三)：打造專屬個人知識庫</h1>
+            <p class="text-[10px] text-gray-400 mt-1 uppercase tracking-widest font-black text-purple-800 font-mono">Precision Knowledge Management</p>
+        </div>
+        <a href="index.html" class="bg-purple-50 text-purple-600 hover:bg-purple-600 hover:text-white font-bold py-2 px-4 rounded-xl transition-all text-xs">← 返回課程列表</a>
+    </div>
+</header>
+
+<div class="flex-1 flex flex-col md:flex-row container mx-auto px-4 py-8 gap-8 overflow-hidden">
+    <nav class="w-full md:w-72 flex-shrink-0">
+        <div class="bg-white rounded-3xl shadow-xl p-5 sticky top-24 border border-gray-100">
+            <h3 class="text-xs font-black text-gray-400 uppercase tracking-widest mb-6 px-2">功能導航 / Functions</h3>
+            <ul id="menu" class="space-y-2 text-sm font-medium">
+                <li data-id="intro" class="menu-item active bg-purple-600 text-white px-4 py-4 rounded-2xl cursor-pointer transition-all flex items-center gap-3">
+                    <span>🧠</span> 1. 核心：智慧大腦
+                </li>
+                <li data-id="sources" class="menu-item hover:bg-purple-50 px-4 py-4 rounded-2xl cursor-pointer transition-all flex items-center gap-3 text-gray-600">
+                    <span>📁</span> 2. 匯入：餵養 AI
+                </li>
+                <li data-id="qa" class="menu-item hover:bg-purple-50 px-4 py-4 rounded-2xl cursor-pointer transition-all flex items-center gap-3 text-gray-600">
+                    <span>💡</span> 3. 提煉：智慧對話
+                </li>
+                <li data-id="audio" class="menu-item hover:bg-purple-50 px-4 py-4 rounded-2xl cursor-pointer transition-all flex items-center gap-3 text-gray-600">
+                    <span>🎧</span> 4. 變身：AI Podcast
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="flex-1 flex flex-col gap-6 overflow-hidden">
+        <div class="bg-white rounded-3xl shadow-xl p-8 md:p-12 min-h-[550px] border border-gray-100 flex flex-col">
+            <h2 id="current-title" class="text-3xl font-black text-gray-800 mb-8 border-b pb-6">歡迎學習</h2>
+            <div id="content-area" class="flex-1"></div>
+        </div>
+    </main>
+</div>
+
+<footer class="bg-white border-t py-10 mt-12">
+    <div class="container mx-auto px-6 text-center">
+        <p class="text-gray-400 text-[10px] tracking-widest font-black uppercase">&copy; 2026 Andy Wang &bull; NotebookLM Mastery</p>
+    </div>
+</footer>
+
+<script>
+    const chapters = {
+        intro: {
+            title: "NotebookLM：不會亂說話的 AI",
+            html: `
+                <div class="max-w-3xl space-y-6">
+                    <p class="text-gray-600 leading-relaxed text-sm">
+                        一般的 AI 會根據全網路的資料來回答，有時會產生「幻覺」(Hallucination)。但 <b>NotebookLM</b> 只會根據你提供給它的資料來回答。
+                    </p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="p-6 bg-purple-50 rounded-2xl border border-purple-100">
+                            <h4 class="font-bold text-purple-700 mb-2">零幻覺 (Source-grounding)</h4>
+                            <p class="text-xs text-purple-600">它會明確告訴你：這個答案是在你提供的資料第幾頁找到的。</p>
+                        </div>
+                        <div class="p-6 bg-amber-50 rounded-2xl border border-amber-100">
+                            <h4 class="font-bold text-amber-700 mb-2">專屬你的家教</h4>
+                            <p class="text-xs text-amber-600">它不認識全世界，但它最懂你的講義、筆記與期末報告。</p>
+                        </div>
+                    </div>
+                    <div class="bg-gray-800 p-8 rounded-3xl text-center shadow-purple-200 shadow-2xl">
+                        <a href="https://notebooklm.google.com" target="_blank" class="inline-block bg-purple-600 text-white font-black py-3 px-12 rounded-full hover:bg-purple-700 transition-all">👉 開啟你的知識庫</a>
+                    </div>
+                </div>
+            `
+        },
+        sources: {
+            title: "如何「餵食」你的 AI 助教？",
+            html: `
+                <div class="max-w-3xl">
+                    <p class="text-sm text-gray-600 mb-8 text-center font-medium">資料餵得越精準，AI 表現就越聰明：</p>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+                        <div class="source-card p-5 rounded-2xl text-center shadow-sm">
+                            <div class="text-3xl mb-2">📄</div><p class="text-xs font-bold text-gray-700 uppercase tracking-tighter">PDF 講義</p>
+                        </div>
+                        <div class="source-card p-5 rounded-2xl text-center shadow-sm">
+                            <div class="text-3xl mb-2">📝</div><p class="text-xs font-bold text-gray-700 uppercase tracking-tighter">雲端文件</p>
+                        </div>
+                        <div class="source-card p-5 rounded-2xl text-center shadow-sm">
+                            <div class="text-3xl mb-2">🌐</div><p class="text-xs font-bold text-gray-700 uppercase tracking-tighter">網頁內容</p>
+                        </div>
+                        <div class="source-card p-5 rounded-2xl text-center shadow-sm">
+                            <div class="text-3xl mb-2">📺</div><p class="text-xs font-bold text-gray-700 uppercase tracking-tighter">YT 逐字稿</p>
+                        </div>
+                    </div>
+                    <div class="bg-indigo-600 p-6 rounded-2xl text-white shadow-xl">
+                        <p class="text-xs font-bold mb-2 uppercase tracking-widest text-indigo-200">國一生的實戰秘訣 💡</p>
+                        <p class="text-xs leading-relaxed opacity-90 font-medium">
+                            「把這學期的國文自學課文、自然講義 PDF 全部丟進去。你就不再需要翻書，只需要『問』它，它就會幫你整理好所有的修辭技巧或科學公式！」
+                        </p>
+                    </div>
+                </div>
+            `
+        },
+        qa: {
+            title: "從大堆資料中「榨出」重點",
+            html: `
+                <div class="max-w-3xl space-y-6">
+                    <p class="text-sm text-gray-600 font-bold">試著問你的 NotebookLM：</p>
+                    <div class="space-y-4">
+                        <div class="qa-bubble qa-user shadow-sm">「幫我把這 5 份自然講義，整理成一張給國一生看的考前重點表格。」</div>
+                        <div class="qa-bubble qa-ai shadow-md leading-relaxed text-sm">
+                            根據你的資料，這學期的三大重點如下：<br>
+                            1. <b>呼吸作用</b>：細胞利用氧氣產生能量的過程... (詳見講義 A 第 3 頁)<br>
+                            2. <b>酵素活性</b>：受溫度與酸鹼值影響... (詳見講義 C 第 10 頁)
+                        </div>
+                        <div class="qa-bubble qa-user shadow-sm">「根據我的社會報告草稿，有哪些地方邏輯不通？請給我改進建議。」</div>
+                    </div>
+                </div>
+            `
+        },
+        audio: {
+            title: "聽一場屬於你的 Podcast 複習課",
+            html: `
+                <div class="max-w-3xl text-center">
+                    <div class="mb-10 inline-block p-6 bg-purple-100 rounded-full animate-pulse text-5xl">🎧</div>
+                    <h4 class="font-black text-gray-800 mb-4 text-xl">Audio Overview 功能</h4>
+                    <p class="text-sm text-gray-500 mb-10 leading-relaxed max-w-md mx-auto">
+                        點擊 <b>Generate</b> 按鈕，AI 會自動產生兩位主持人正在「輕鬆聊天」討論你資料的音檔。
+                    </p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
+                        <div class="p-6 border rounded-3xl bg-white shadow-sm hover:border-purple-300 transition-all">
+                            <p class="font-bold text-purple-700 text-sm mb-2">通勤/睡前複習</p>
+                            <p class="text-[11px] text-gray-500 font-medium leading-relaxed">不需要盯著螢幕，用「聽」的方式讓 AI 幫你內化困難的學科知識。</p>
+                        </div>
+                        <div class="p-6 border rounded-3xl bg-white shadow-sm hover:border-purple-300 transition-all">
+                            <p class="font-bold text-purple-700 text-sm mb-2">多國語言學習</p>
+                            <p class="text-[11px] text-gray-500 font-medium leading-relaxed">丟入全英文的文章，AI 的對話可以幫你理解大意，甚至練習聽力。</p>
+                        </div>
+                    </div>
+                </div>
+            `
+        }
+    };
+
+    function render(id) {
+        const data = chapters[id];
+        $('#current-title').text(data.title);
+        $('#content-area').html(data.html).hide().fadeIn(400);
+    }
+
+    $('#menu li').click(function() {
+        $('.menu-item').removeClass('active bg-purple-600 text-white').addClass('hover:bg-purple-50 text-gray-600');
+        $(this).addClass('active bg-purple-600 text-white').removeClass('hover:bg-purple-50 text-gray-600');
+        render($(this).data('id'));
+    });
+
+    $(document).ready(() => render('intro'));
+</script>
+</body>
+</html>
